@@ -1,0 +1,66 @@
+/* Нормализация стилей */
+@import url('../vendor/normalize.css');
+
+/* Шрифты */
+@import url('../vendor/fonts/fonts.css');
+
+/* Миксы */
+
+@import url('../blocks/btn/btn.css');
+
+/* Блок root */
+@import url('../blocks/root/root.css');
+
+/* Блок content */
+@import url('../blocks/content/content.css');
+
+/* Блок header*/
+@import url('../blocks/header/header.css');
+@import url('../blocks/header/__logo/header__logo.css');
+
+/* Блок profile*/
+@import url('../blocks/profile/profile.css');
+@import url('../blocks/profile/__info/profile__info.css');
+@import url('../blocks/profile/__img/profile__img.css');
+@import url('../blocks/profile/__user-info/profile__user-info.css');
+@import url('../blocks/profile/__name/profile__name.css');
+@import url('../blocks/profile/__name/_theme/profile__name_theme_dark.css');
+@import url('../blocks/profile/__profession/profile__profession.css');
+@import url('../blocks/profile/__profession/_theme/profile__profession_theme_dark.css');
+@import url('../blocks/profile/__edit-btn/profile__edit-btn.css');
+@import url('../blocks/profile/__edit-img/profile__edit-img.css');
+
+@import url('../blocks/card-add-btn/card-add-btn.css');
+@import url('../blocks/card-add-img/card-add-img.css');
+
+/* Блок journey*/
+@import url('../blocks/journey/journey.css');
+@import url('../blocks/journey/__list/journey__list.css');
+@import url('../blocks/journey/__item/journey__item.css');
+@import url('../blocks/journey/__img/journey__img.css');
+@import url('../blocks/journey/__description/journey__description.css');
+@import url('../blocks/journey/__title/journey__title.css');
+@import url('../blocks/journey/__like-btn/journey__like-btn.css');
+@import url('../blocks/journey/__like-img/journey__like-img.css');
+@import url('../blocks/journey/__like-img/_active/journey__like-img_active.css');
+
+/* Блок popup*/
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/_opened/popup__opened.css');
+@import url('../blocks/popup/__container/popup__container.css');
+@import url('../blocks/popup/__title/popup__title.css');
+@import url('../blocks/popup/__form/popup__form.css');
+@import url('../blocks/popup/__close-btn/popup__close-btn.css');
+@import url('../blocks/popup/__close-img/popup__close-img.css');
+@import url('../blocks/popup/__name/popup__name.css');
+@import url('../blocks/popup/__form-btn/popup__form-btn.css');
+@import url('../blocks/popup/__profession/popup__profession.css');
+
+/* Блок footer*/
+@import url('../blocks/footer/footer.css');
+@import url('../blocks/footer/__copyright/footer__copyright.css');
+
+
+
+
+

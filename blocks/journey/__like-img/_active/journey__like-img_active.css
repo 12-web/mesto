@@ -1,0 +1,20 @@
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.journey__like-img_active {
+  fill: #000;
+  animation: heartBeat .4s;
+}
+
+.journey__like-img_active:hover {
+  opacity: 1;
+}

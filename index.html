@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Анатолий Чуднов">
+    <meta name="keywords" content="JS, верстка, HTML, CSS">
+    <meta name="description" content="Типовая страница по отработке навыков обращения к элементам DOM,
+    добавлению обработчиков событий и написаю циклов и функций">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Место</title>
+  </head>
+  <body class="root">
+    <header class="header">
+      <img src="./images/logo-light.svg" alt="Логотип Местро" class="header__logo">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__info">
+          <img src="./images/user-photo.png" alt="Фото пользователя" class="profile__img">
+          <div class="profile__user-info">
+            <h1 class="profile__name profile__name_theme_dark">Жак-Ив Кусто</h1>
+            <button class="profile__edit-btn btn">
+              <img src="./images/edit-image.svg" alt="Редактирование профиля" class="profile__edit-img" title="Редактировать профиль">
+            </button>
+            <p class="profile__profession profile__profession_theme_dark">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="card-add-btn btn" title="Добавить карточку">
+          <img src="./images/plus-icon.svg" alt="Добавить карточку" class="card-add-img">
+        </button>
+      </section>
+      <section class="popup">
+        <div class="popup__container">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <button class="popup__close-btn btn" title="Закрыть окно">
+            <img src="./images/close-icon.svg" class="popup__close-img" alt="Закрыть окно">
+          </button>
+          <form action="#" class="popup__form">
+            <input type="text" class="popup__name" name="name" title="Введите имя" placeholder="Введите имя">
+            <input type="text" class="popup__profession" name="profession" title="Введите род деятельности" placeholder="Введите род деятельности">
+            <button class="popup__form-btn btn" type="submit" title="Сохранить">Сохранить</button>
+          </form>
+        </div>
+      </section>
+      <section class="journey">
+        <ul class="journey__list">
+          <li class="journey__item">
+            <img src="./images/karachaevsk.jpg" alt="" class="journey__img">
+            <div class="journey__description">
+              <h2 class="journey__title">Карачаевск</h2>
+              <form action="#" class="journey__like-form">
+                <button type="submit" class="journey__like-btn btn" title="Оценить">
+                  <svg class="journey__like-img" viewBox="0 0 22 19">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="m 18.962808,2.5524238 c 1.90273,1.8815848
+                    1.90273,4.9673898 0,6.8677966 L 11.144575,17.228814 3.3451351,9.439034 C 2.4408597,8.5170594
+                    1.9322034,7.2940255 1.9322034,5.9957289 c 0,-1.2982966 0.4898177,-2.5213305 1.4129317,-3.4433051
+                    1.8839117,-1.90040588 4.9735346,-1.90040588 6.8762819,0.018814 l 0.923158,0.921983 0.923049,-0.9407966 c
+                    1.902814,-1.90040588 4.99237,-1.90040588 6.895184,-4e-7 z"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </li>
+          <li class="journey__item">
+            <img src="./images/dombay.jpg" alt="" class="journey__img">
+            <div class="journey__description">
+              <h2 class="journey__title">Гора Эльбрус</h2>
+              <form action="#" class="journey__like-form">
+                <button type="submit" class="journey__like-btn btn" title="Оценить">
+                  <svg class="journey__like-img" viewBox="0 0 22 19">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="m 18.962808,2.5524238 c 1.90273,1.8815848
+                    1.90273,4.9673898 0,6.8677966 L 11.144575,17.228814 3.3451351,9.439034 C 2.4408597,8.5170594
+                    1.9322034,7.2940255 1.9322034,5.9957289 c 0,-1.2982966 0.4898177,-2.5213305 1.4129317,-3.4433051
+                    1.8839117,-1.90040588 4.9735346,-1.90040588 6.8762819,0.018814 l 0.923158,0.921983 0.923049,-0.9407966 c
+                    1.902814,-1.90040588 4.99237,-1.90040588 6.895184,-4e-7 z"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </li>
+          <li class="journey__item">
+            <img src="./images/elbrus.jpg" alt="" class="journey__img">
+            <div class="journey__description">
+              <h2 class="journey__title">Домбай</h2>
+              <form action="#" class="journey__like-form">
+                <button type="submit" class="journey__like-btn btn" title="Оценить">
+                  <svg class="journey__like-img" viewBox="0 0 22 19">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="m 18.962808,2.5524238 c 1.90273,1.8815848
+                    1.90273,4.9673898 0,6.8677966 L 11.144575,17.228814 3.3451351,9.439034 C 2.4408597,8.5170594
+                    1.9322034,7.2940255 1.9322034,5.9957289 c 0,-1.2982966 0.4898177,-2.5213305 1.4129317,-3.4433051
+                    1.8839117,-1.90040588 4.9735346,-1.90040588 6.8762819,0.018814 l 0.923158,0.921983 0.923049,-0.9407966 c
+                    1.902814,-1.90040588 4.99237,-1.90040588 6.895184,-4e-7 z"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </li>
+          <li class="journey__item">
+            <img src="./images/dombay.jpg" alt="" class="journey__img">
+            <div class="journey__description">
+              <h2 class="journey__title">Гора Эльбрус</h2>
+              <form action="#" class="journey__like-form">
+                <button type="submit" class="journey__like-btn btn" title="Оценить">
+                  <svg class="journey__like-img" viewBox="0 0 22 19">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="m 18.962808,2.5524238 c 1.90273,1.8815848
+                    1.90273,4.9673898 0,6.8677966 L 11.144575,17.228814 3.3451351,9.439034 C 2.4408597,8.5170594
+                    1.9322034,7.2940255 1.9322034,5.9957289 c 0,-1.2982966 0.4898177,-2.5213305 1.4129317,-3.4433051
+                    1.8839117,-1.90040588 4.9735346,-1.90040588 6.8762819,0.018814 l 0.923158,0.921983 0.923049,-0.9407966 c
+                    1.902814,-1.90040588 4.99237,-1.90040588 6.895184,-4e-7 z"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </li>
+          <li class="journey__item">
+            <img src="./images/elbrus.jpg" alt="" class="journey__img">
+            <div class="journey__description">
+              <h2 class="journey__title">Домбай</h2>
+              <form action="#" class="journey__like-form">
+                <button type="submit" class="journey__like-btn btn" title="Оценить">
+                  <svg class="journey__like-img" viewBox="0 0 22 19">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="m 18.962808,2.5524238 c 1.90273,1.8815848
+                    1.90273,4.9673898 0,6.8677966 L 11.144575,17.228814 3.3451351,9.439034 C 2.4408597,8.5170594
+                    1.9322034,7.2940255 1.9322034,5.9957289 c 0,-1.2982966 0.4898177,-2.5213305 1.4129317,-3.4433051
+                    1.8839117,-1.90040588 4.9735346,-1.90040588 6.8762819,0.018814 l 0.923158,0.921983 0.923049,-0.9407966 c
+                    1.902814,-1.90040588 4.99237,-1.90040588 6.895184,-4e-7 z"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </li>
+          <li class="journey__item">
+            <img src="./images/karachaevsk.jpg" alt="" class="journey__img">
+            <div class="journey__description">
+              <h2 class="journey__title">Карачаево-Черкесская</h2>
+              <form action="#" class="journey__like-form">
+                <button type="submit" class="journey__like-btn btn" title="Оценить">
+                  <svg class="journey__like-img" viewBox="0 0 22 19">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="m 18.962808,2.5524238 c 1.90273,1.8815848
+                    1.90273,4.9673898 0,6.8677966 L 11.144575,17.228814 3.3451351,9.439034 C 2.4408597,8.5170594
+                    1.9322034,7.2940255 1.9322034,5.9957289 c 0,-1.2982966 0.4898177,-2.5213305 1.4129317,-3.4433051
+                    1.8839117,-1.90040588 4.9735346,-1.90040588 6.8762819,0.018814 l 0.923158,0.921983 0.923049,-0.9407966 c
+                    1.902814,-1.90040588 4.99237,-1.90040588 6.895184,-4e-7 z"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+    <script src="./script/index.js"></script>
+  </body>
+</html>

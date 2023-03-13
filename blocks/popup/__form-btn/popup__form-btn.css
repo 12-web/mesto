@@ -1,0 +1,24 @@
+.popup__form-btn {
+  padding: 14px 5px;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  margin-top: 30px;
+  transition: opacity .4s ease-in-out;
+}
+
+.popup__form-btn:hover {
+  opacity: .8;
+}
+
+@media screen and (max-width: 767px){
+  .popup__form-btn {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}

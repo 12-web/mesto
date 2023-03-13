@@ -1,0 +1,15 @@
+.link {
+  text-decoration: none;
+  color: #fff;
+  transition: opacity .4s ease-in-out;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.19;
+  display: flex;
+  align-self: baseline;
+}
+
+.link:hover {
+  opacity: .8;
+}

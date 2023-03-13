@@ -11,8 +11,10 @@
 }
 
 .journey__like-img_active {
-  fill: #000;
   animation: heartBeat .4s;
+  background-image: url('../../../../images/like-icon_active.svg');
+  background-repeat: no-repeat;
+  background-position: cover;
 }
 
 .journey__like-img_active:hover {

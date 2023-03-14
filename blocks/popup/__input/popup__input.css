@@ -1,4 +1,4 @@
-.popup__name {
+.popup__input {
   width: 100%;
   padding: 13px 0 8px;
   border: 0;
@@ -7,10 +7,4 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
-}
-
-@media screen and (max-width: 600px){
-  .popup__close-img {
-    width: 20px;
-  }
 }

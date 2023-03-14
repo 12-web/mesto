@@ -1,22 +1,17 @@
 .profile__user-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   position: relative;
-  max-width: 380px;
   word-break: break-word;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-auto-rows: min-content;
 }
 
 @media screen and (max-width: 767px) {
   .profile__user-info {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 30px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .profile__user-info {
-    max-width: 200px;
   }
 }
 

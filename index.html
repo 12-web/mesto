@@ -20,96 +20,55 @@
         <div class="profile__info">
           <img src="./images/user-photo.png" alt="Фото пользователя" class="profile__img">
           <div class="profile__user-info">
-            <h1 class="profile__name profile__name_theme_dark">Жак-Ив Кусто</h1>
-            <button class="profile__edit-btn btn">
-              <img src="./images/edit-image.svg" alt="Редактирование профиля" class="profile__edit-img" title="Редактировать профиль">
-            </button>
-            <p class="profile__profession profile__profession_theme_dark">Исследователь океана</p>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__profession">Исследователь океана</p>
+            <button class="profile__edit-btn btn" title="Редактировать профиль" type="button"></button>
           </div>
         </div>
-        <button class="card-add-btn btn" title="Добавить карточку">
-          <img src="./images/plus-icon.svg" alt="Добавить карточку" class="card-add-img">
-        </button>
-      </section>
-      <section class="popup">
-        <div class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <button class="popup__close-btn btn" title="Закрыть окно">
-            <img src="./images/close-icon.svg" class="popup__close-img" alt="Закрыть окно">
-          </button>
-          <form action="#" class="popup__form">
-            <input type="text" class="popup__name" name="name" title="Введите имя" placeholder="Введите имя">
-            <input type="text" class="popup__profession" name="profession" title="Введите род деятельности" placeholder="Введите род деятельности">
-            <button class="popup__form-btn btn" type="submit" title="Сохранить">Сохранить</button>
-          </form>
-        </div>
+        <button class="profile__add-btn btn" title="Добавить карточку" type="button"></button>
       </section>
       <section class="journey">
         <ul class="journey__list">
           <li class="journey__item">
-            <img src="./images/karachaevsk.jpg" alt="" class="journey__img">
+            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="journey__img">
             <div class="journey__description">
               <h2 class="journey__title">Карачаевск</h2>
-              <form action="#" class="journey__like-form">
-                <button type="submit" class="journey__like-btn btn" title="Оценить">
-                  <img class="journey__like-img" src="./images/like-icon.svg" alt="Оценить">
-                </button>
-              </form>
+              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
             </div>
           </li>
           <li class="journey__item">
-            <img src="./images/dombay.jpg" alt="" class="journey__img">
+            <img src="./images/dombay.jpg" alt="Домбай" class="journey__img">
             <div class="journey__description">
               <h2 class="journey__title">Гора Эльбрус</h2>
-              <form action="#" class="journey__like-form">
-                <button type="submit" class="journey__like-btn btn" title="Оценить">
-                  <img class="journey__like-img" src="./images/like-icon.svg" alt="Оценить">
-                </button>
-              </form>
+              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
             </div>
           </li>
           <li class="journey__item">
-            <img src="./images/elbrus.jpg" alt="" class="journey__img">
+            <img src="./images/elbrus.jpg" alt="Эльбрус" class="journey__img">
             <div class="journey__description">
               <h2 class="journey__title">Домбай</h2>
-              <form action="#" class="journey__like-form">
-                <button type="submit" class="journey__like-btn btn" title="Оценить">
-                  <img class="journey__like-img" src="./images/like-icon.svg" alt="Оценить">
-                </button>
-              </form>
+              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
             </div>
           </li>
           <li class="journey__item">
-            <img src="./images/dombay.jpg" alt="" class="journey__img">
+            <img src="./images/dombay.jpg" alt="Домбай" class="journey__img">
             <div class="journey__description">
               <h2 class="journey__title">Гора Эльбрус</h2>
-              <form action="#" class="journey__like-form">
-                <button type="submit" class="journey__like-btn btn" title="Оценить">
-                  <img class="journey__like-img" src="./images/like-icon.svg" alt="Оценить">
-                </button>
-              </form>
+              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
             </div>
           </li>
           <li class="journey__item">
-            <img src="./images/elbrus.jpg" alt="" class="journey__img">
+            <img src="./images/elbrus.jpg" alt="Эльбрус" class="journey__img">
             <div class="journey__description">
               <h2 class="journey__title">Домбай</h2>
-              <form action="#" class="journey__like-form">
-                <button type="submit" class="journey__like-btn btn" title="Оценить">
-                  <img class="journey__like-img" src="./images/like-icon.svg" alt="Оценить">
-                </button>
-              </form>
+              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
             </div>
           </li>
           <li class="journey__item">
-            <img src="./images/karachaevsk.jpg" alt="" class="journey__img">
+            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="journey__img">
             <div class="journey__description">
               <h2 class="journey__title">Карачаево-Черкесская Республика</h2>
-              <form action="#" class="journey__like-form">
-                <button type="submit" class="journey__like-btn btn" title="Оценить">
-                  <img class="journey__like-img" src="./images/like-icon.svg" alt="Оценить">
-                </button>
-              </form>
+              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
             </div>
           </li>
         </ul>
@@ -118,6 +77,17 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <button class="popup__close-btn btn" title="Закрыть окно" type="button"></button>
+        <form action="#" class="popup__form" name="user-information">
+          <input type="text" class="popup__input popup__input_value_name" name="name" placeholder="Введите имя">
+          <input type="text" class="popup__input popup__input_value_profession" name="profession" placeholder="Введите род деятельности">
+          <button class="popup__form-btn btn" type="submit" title="Сохранить">Сохранить</button>
+        </form>
+      </div>
+    </div>
     <script src="./script/index.js"></script>
   </body>
 </html>

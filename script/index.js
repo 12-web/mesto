@@ -1,80 +1,74 @@
-// ------------перевод иконки сердца в активное состояние---------------
-let likeButtons = document.querySelectorAll('.journey__like-btn');
+// ------------- переменные --------------------
 
-// проверка наличия массива
-if(likeButtons.length > 0) {
-
-  likeButtons.forEach(function(item) {
-
-    item.addEventListener('click', function() {
-      item.firstElementChild.classList.toggle('journey__like-img_active');
-    });
-
-  });
-
-  let likeForms = document.querySelectorAll('.journey__like-form');
-
-  // отправка формы активации сердца
-  // на данный момент - отмена перезагрузки страницы
-  likeForms.forEach(function(item) {
-
-    item.addEventListener('submit', function(e) {
-      e.preventDefault();
-    });
-
-  });
-}
-// ------------------------------------------------------------------------------
-
-// ---------------------перевод попапа в активное состояние----------------------
 const popup = document.querySelector('.popup');
-const popupCloseBtn = document.querySelector('.popup__close-btn');
-const formElement = document.querySelector('.popup__form');
-const userNameInput = document.querySelector('.popup__name');
-const jobInput = document.querySelector('.popup__profession');
+const popupCloseBtn = popup.querySelector('.popup__close-btn');
+const formElement = popup.querySelector('.popup__form');
+const userNameInput = popup.querySelector('.popup__input_value_name');
+const jobInput = popup.querySelector('.popup__input_value_profession');
 
 const profile = document.querySelector('.profile');
-const userName = document.querySelector('.profile__name');
-const profession = document.querySelector('.profile__profession');
+const userName = profile.querySelector('.profile__name');
+const profession = profile.querySelector('.profile__profession');
+const profileEditBtn = profile.querySelector('.profile__edit-btn');
 
-// проверка наличия попапа
-if(popup) {
+const likeButtons = document.querySelectorAll('.journey__like-btn');
+
+// ------------------------------------------
+
+// ------------- функции --------------------
+
+// функция открытия попапа
+function openPopup () {
+  popup.classList.add('popup_opened');
 
   // присвоение полям ввода значений из текста
   userNameInput.value = userName.textContent;
   jobInput.value = profession.textContent;
-
-  // функция загрытия попапа
-  function closePopup () {
-    popup.classList.remove('popup_opened');
-  }
-
-  // закрытие попапа
-  popupCloseBtn.addEventListener('click', closePopup);
-
-
-  const profileEditBtn = document.querySelector('.profile__edit-btn');
-
-  // открытие попапа
-  profileEditBtn.addEventListener('click', function() {
-    popup.classList.add('popup_opened');
-  });
-
-  // функция изменения данных профиля
-  function handleFormSubmit (e) {
-      e.preventDefault();
-
-      let userNameInputValue = userNameInput.value;
-      let jobInputValue = jobInput.value;
-
-      userName.textContent = userNameInputValue;
-      profession.textContent = jobInputValue;
-
-      closePopup();
-  }
-
-  // отправка формы редактирования данных профиля
-  formElement.addEventListener('submit', handleFormSubmit);
 }
-// ------------------------------------------------------------------------------
 
+// функция загрытия попапа
+function closePopup () {
+  popup.classList.remove('popup_opened');
+}
+
+// функция изменения данных профиля
+function handleFormSubmit (e) {
+  e.preventDefault();
+
+  let userNameInputValue = userNameInput.value;
+  let jobInputValue = jobInput.value;
+
+  userName.textContent = userNameInputValue;
+  profession.textContent = jobInputValue;
+
+  closePopup();
+}
+
+// функция перевода кнопки сердца в активное состоние
+function activateBtnHeart(item) {
+  item.preventDefault();
+
+  item.classList.toggle('journey__like-btn_active');
+}
+
+// ------------------------------------------------------
+
+// ------------- обработчики событий --------------------
+
+// открытие попапа
+profileEditBtn.addEventListener('click', openPopup);
+
+// закрытие попапа
+popupCloseBtn.addEventListener('click', closePopup);
+
+// отправка формы редактирования данных профиля
+formElement.addEventListener('submit', handleFormSubmit);
+
+// перевод кнопки сердца в актичное состояние
+likeButtons.forEach(function(item) {
+
+  item.addEventListener('click', activateBtnHeart(item));
+
+});
+
+// -------------------------------------------------------

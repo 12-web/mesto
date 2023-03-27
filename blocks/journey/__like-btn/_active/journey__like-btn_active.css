@@ -14,3 +14,7 @@
   background-image: url('../../../../images/like-icon_active.svg');
   animation: heartBeat .4s ease-in-out;
 }
+
+.journey__like-btn_active:hover {
+  opacity: 1;
+}

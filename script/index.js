@@ -64,7 +64,7 @@ function createJourneyCard(name, link) {
   const journeyTemplate = document.querySelector('#journey_item').content;
   const journeyElement = journeyTemplate.querySelector('.journey__item').cloneNode(true);
   const journeyImg = journeyElement.querySelector('.journey__img');
-  const btnOpenJourneyPopup = journeyElement.querySelector('.journey__img-container');
+  const btnOpenJourneyPopup = journeyElement.querySelector('.journey__img-btn');
   const btnDeleteCard = journeyElement.querySelector('.journey__delete-btn');
   const btnLikeCard = journeyElement.querySelector('.journey__like-btn');
   const btnCloseShowPopup = popupShow.querySelector('.popup__close-btn')

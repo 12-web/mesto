@@ -29,65 +29,55 @@
       </section>
       <section class="journey">
         <ul class="journey__list">
-          <li class="journey__item">
-            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="journey__img">
-            <div class="journey__description">
-              <h2 class="journey__title">Карачаевск</h2>
-              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
-            </div>
-          </li>
-          <li class="journey__item">
-            <img src="./images/dombay.jpg" alt="Домбай" class="journey__img">
-            <div class="journey__description">
-              <h2 class="journey__title">Гора Эльбрус</h2>
-              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
-            </div>
-          </li>
-          <li class="journey__item">
-            <img src="./images/elbrus.jpg" alt="Эльбрус" class="journey__img">
-            <div class="journey__description">
-              <h2 class="journey__title">Домбай</h2>
-              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
-            </div>
-          </li>
-          <li class="journey__item">
-            <img src="./images/dombay.jpg" alt="Домбай" class="journey__img">
-            <div class="journey__description">
-              <h2 class="journey__title">Гора Эльбрус</h2>
-              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
-            </div>
-          </li>
-          <li class="journey__item">
-            <img src="./images/elbrus.jpg" alt="Эльбрус" class="journey__img">
-            <div class="journey__description">
-              <h2 class="journey__title">Домбай</h2>
-              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
-            </div>
-          </li>
-          <li class="journey__item">
-            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="journey__img">
-            <div class="journey__description">
-              <h2 class="journey__title">Карачаево-Черкесская Республика</h2>
-              <button type="button" class="journey__like-btn btn" title="Оценить"></button>
-            </div>
-          </li>
         </ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <button class="popup__close-btn btn" title="Закрыть окно" type="button"></button>
         <form action="#" class="popup__form" name="user-information">
-          <input type="text" class="popup__input popup__input_value_name" name="name" placeholder="Введите имя">
-          <input type="text" class="popup__input popup__input_value_profession" name="profession" placeholder="Введите род деятельности">
+          <input type="text" class="popup__input popup__input_value_name" name="name" placeholder="Имя" required>
+          <input type="text" class="popup__input popup__input_value_profession" name="profession" placeholder="Род деятельности" required>
           <button class="popup__form-btn btn" type="submit" title="Сохранить">Сохранить</button>
         </form>
       </div>
     </div>
+    <div class="popup popup_type_add">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <button class="popup__close-btn btn" title="Закрыть окно" type="button"></button>
+        <form action="#" class="popup__form" name="card-information">
+          <input type="text" class="popup__input popup__input_value_name" name="name" placeholder="Название" required>
+          <input type="url" class="popup__input popup__input_value_link" name="link" placeholder="Ссылка на картинку" required>
+          <button class="popup__form-btn btn" type="submit" title="Сохранить">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_show">
+      <div class="popup__show-content">
+        <button class="popup__close-btn btn" title="Закрыть окно" type="button"></button>
+        <figure class="popup__img-container">
+          <img class="popup__img" src="" alt="">
+          <figcaption class="popup__caption"></figcaption>
+        </figure>
+      </div>
+    </div>
+    <template id="journey_item">
+      <li class="journey__item">
+        <button type="button" class="journey__delete-btn btn" title="Удалить"></button>
+        <button type="button" class="journey__img-container btn" title="Посмотреть фото">
+          <img class="journey__img">
+        </button>
+        <div class="journey__description">
+          <h2 class="journey__title"></h2>
+          <button type="button" class="journey__like-btn btn" title="Оценить"></button>
+        </div>
+      </li>
+    </template>
     <script src="./script/index.js"></script>
   </body>
 </html>

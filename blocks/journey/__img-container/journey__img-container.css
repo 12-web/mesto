@@ -1,0 +1,20 @@
+.journey__img-container {
+  display: inline;
+  position: relative;
+  z-index: 1;
+  width: 282px;
+  height: 282px;
+}
+
+/* .journey__img-container::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(196,196,196,.2);
+  border-radius: 10px 10px 0px 0px;
+} */

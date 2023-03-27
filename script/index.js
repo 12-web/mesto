@@ -1,80 +1,163 @@
-// ------------перевод иконки сердца в активное состояние---------------
-let likeButtons = document.querySelectorAll('.journey__like-btn');
+// ------------------- константы ------------------------------------------------
 
-// проверка наличия массива
-if(likeButtons.length > 0) {
+const popupEdit = document.querySelector('.popup_type_edit');
+const btnCloseEditPopup = popupEdit.querySelector('.popup__close-btn')
+const formElement = popupEdit.querySelector('.popup__form');
+const userNameInput = popupEdit.querySelector('.popup__input_value_name');
+const jobInput = popupEdit.querySelector('.popup__input_value_profession');
 
-  likeButtons.forEach(function(item) {
-
-    item.addEventListener('click', function() {
-      item.firstElementChild.classList.toggle('journey__like-img_active');
-    });
-
-  });
-
-  let likeForms = document.querySelectorAll('.journey__like-form');
-
-  // отправка формы активации сердца
-  // на данный момент - отмена перезагрузки страницы
-  likeForms.forEach(function(item) {
-
-    item.addEventListener('submit', function(e) {
-      e.preventDefault();
-    });
-
-  });
-}
-// ------------------------------------------------------------------------------
-
-// ---------------------перевод попапа в активное состояние----------------------
-const popup = document.querySelector('.popup');
-const popupCloseBtn = document.querySelector('.popup__close-btn');
-const formElement = document.querySelector('.popup__form');
-const userNameInput = document.querySelector('.popup__name');
-const jobInput = document.querySelector('.popup__profession');
+const popupAdd = document.querySelector('.popup_type_add');
+const btnCloseAddPopup = popupAdd.querySelector('.popup__close-btn')
+const popupAddForm = popupAdd.querySelector('.popup__form');
+const popupShow = document.querySelector('.popup_type_show');
 
 const profile = document.querySelector('.profile');
-const userName = document.querySelector('.profile__name');
-const profession = document.querySelector('.profile__profession');
+const userName = profile.querySelector('.profile__name');
+const profession = profile.querySelector('.profile__profession');
+const profileEditBtn = profile.querySelector('.profile__edit-btn');
+const btnAddCard = profile.querySelector('.profile__add-btn');
 
-// проверка наличия попапа
-if(popup) {
+
+const journeyElements = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+// --------------------------------------------------------------------------------------
+
+// ------------------- функции ----------------------------------------------------------
+
+// функция открытия попапа
+function openPopup(popapName) {
+  popapName.classList.add('popup_opened');
+}
+
+// функция закрытия попапа
+function closePopup(popapName) {
+  popapName.classList.remove('popup_opened');
+}
+
+// функция вывода карточки на страницу
+function createJourneyCard(name, link) {
+  const journeyElementsContainer = document.querySelector('.journey__list');
+  const journeyTemplate = document.querySelector('#journey_item').content;
+  const journeyElement = journeyTemplate.querySelector('.journey__item').cloneNode(true);
+  const journeyImg = journeyElement.querySelector('.journey__img');
+  const btnOpenJourneyPopup = journeyElement.querySelector('.journey__img-container');
+  const btnDeleteCard = journeyElement.querySelector('.journey__delete-btn');
+  const btnLikeCard = journeyElement.querySelector('.journey__like-btn');
+  const btnCloseShowPopup = popupShow.querySelector('.popup__close-btn')
+
+  journeyImg.src = link;
+  journeyImg.alt = name;
+  journeyElement.querySelector('.journey__title').textContent = name;
+
+  journeyElementsContainer.prepend(journeyElement);
+
+  // функция удаления карточки
+  function deleteJourneyCard(e) {
+    e.target.closest('.journey__item').remove();
+  }
+  // функция лайка карточки
+  function activeLikeBtn(e) {
+    e.target.classList.toggle('journey__like-btn_active');
+  }
+  // функция открытия попапа карточки
+  function openJourneyPopup() {
+    const imgPopupShow = popupShow.querySelector('.popup__img');
+
+    popupShow.classList.add('popup_opened');
+    imgPopupShow.src = link;
+    imgPopupShow.alt = name;
+    popupShow.querySelector('.popup__caption').textContent = name;
+  }
+
+  // удаление карточки
+  btnDeleteCard.addEventListener('click', deleteJourneyCard);
+  // лайк карточки
+  btnLikeCard.addEventListener('click', activeLikeBtn);
+  // открытие попапа карточки
+  btnOpenJourneyPopup.addEventListener('click', openJourneyPopup);
+  // закрытие попапа карточки
+  btnCloseShowPopup.addEventListener('click', () => closePopup(popupShow));
+}
+
+// вывод массива карточек на страницу
+journeyElements.forEach(item => createJourneyCard(item.name, item.link));
+
+// функция добавления новой карточки
+function submitAddCardForm(e) {
+  e.preventDefault();
+
+  const elementName = popupAdd.querySelector('.popup__input_value_name');
+  const elementLink = popupAdd.querySelector('.popup__input_value_link');
+
+  createJourneyCard(elementName.value, elementLink.value);
+  closePopup(popupAdd);
+
+  elementName.value = '';
+  elementLink.value = '';
+}
+
+// функция изменения данных профиля
+function submitEditProfileForm(e) {
+  e.preventDefault();
+
+  const userNameInputValue = userNameInput.value;
+  const jobInputValue = jobInput.value;
+
+  userName.textContent = userNameInputValue;
+  profession.textContent = jobInputValue;
+
+  closePopup(popupEdit);
+}
+// --------------------------------------------------------------------------------------
+
+// ------------------- слушатели событий ------------------------------------------------
+
+// открытие попапа редактирования профиля
+profileEditBtn.addEventListener('click', () => {
+  openPopup(popupEdit);
 
   // присвоение полям ввода значений из текста
   userNameInput.value = userName.textContent;
   jobInput.value = profession.textContent;
+});
 
-  // функция загрытия попапа
-  function closePopup () {
-    popup.classList.remove('popup_opened');
-  }
+// закрытие попапа редактирования профиля
+btnCloseEditPopup.addEventListener('click', () => closePopup(popupEdit));
 
-  // закрытие попапа
-  popupCloseBtn.addEventListener('click', closePopup);
+// открытие попапа добавления карточки
+btnAddCard.addEventListener('click', () => {openPopup(popupAdd)});
 
+// закрытие попапа добавления карточки
+btnCloseAddPopup.addEventListener('click', () => closePopup(popupAdd));
 
-  const profileEditBtn = document.querySelector('.profile__edit-btn');
+// отправка формы редактирования данных профиля
+formElement.addEventListener('submit', submitEditProfileForm);
 
-  // открытие попапа
-  profileEditBtn.addEventListener('click', function() {
-    popup.classList.add('popup_opened');
-  });
-
-  // функция изменения данных профиля
-  function handleFormSubmit (e) {
-      e.preventDefault();
-
-      let userNameInputValue = userNameInput.value;
-      let jobInputValue = jobInput.value;
-
-      userName.textContent = userNameInputValue;
-      profession.textContent = jobInputValue;
-
-      closePopup();
-  }
-
-  // отправка формы редактирования данных профиля
-  formElement.addEventListener('submit', handleFormSubmit);
-}
-// ------------------------------------------------------------------------------
+// добавление новой карточки
+popupAddForm.addEventListener('submit', submitAddCardForm);
+// --------------------------------------------------------------------------------------
 

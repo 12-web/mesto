@@ -44,7 +44,7 @@ function addInputValue(inputItem, textItem) {
 }
 
 // функция создания карточки
-function createJourneyCard(name, link) {
+function createJourneyCard(item) {
   const journeyTemplate = document.querySelector('#journey_item').content;
   const journeyElement = journeyTemplate.querySelector('.journey__item').cloneNode(true);
   const journeyImg = journeyElement.querySelector('.journey__img');
@@ -53,9 +53,9 @@ function createJourneyCard(name, link) {
   const btnLikeCard = journeyElement.querySelector('.journey__like-btn');
   const journeyTitle = journeyElement.querySelector('.journey__title');
 
-  journeyImg.src = link;
-  journeyTitle.textContent = name;
-  journeyImg.alt = name;
+  journeyImg.src = item.link;
+  journeyTitle.textContent = item.name;
+  journeyImg.alt = item.name;
 
   // функция удаления карточки
   function deleteJourneyCard(e) {
@@ -69,9 +69,9 @@ function createJourneyCard(name, link) {
   // функция открытия попапа карточки
   function openJourneyPopup() {
     openPopup(popupShow);
-    imgPopupShow.src = link;
-    popupCaption.textContent = name;
-    imgPopupShow.alt = name;
+    imgPopupShow.src = item.link;
+    popupCaption.textContent = item.name;
+    imgPopupShow.alt = item.name;
   }
 
   // удаление карточки
@@ -85,8 +85,8 @@ function createJourneyCard(name, link) {
 }
 
 // функция добавления карточки на страницу
-function renderCard(name, link) {
-  const journeyCard = createJourneyCard(name, link);
+function renderCard(item) {
+  const journeyCard = createJourneyCard(item);
 
   journeyElementsContainer.prepend(journeyCard);
 }
@@ -94,8 +94,9 @@ function renderCard(name, link) {
 // функция добавления новой карточки
 function submitAddCardForm(e) {
   e.preventDefault();
+  const card = {name: elementName.value, link: elementLink.value};
 
-  renderCard(elementName.value, elementLink.value);
+  renderCard(card);
   closePopup(popupAdd);
   popupAddForm.reset();
 }
@@ -114,7 +115,7 @@ function submitEditProfileForm(e) {
 // ================ циклы ===============================================================
 
 // вывод массива карточек на страницу
-journeyElements.forEach(item => renderCard(item.name, item.link));
+journeyElements.forEach(item => renderCard(item));
 
 // ======================================================================================
 

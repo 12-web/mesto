@@ -44,7 +44,7 @@ function addInputValue(inputItem, textItem) {
 }
 
 // функция создания карточки
-function createJourneyCard(item) {
+function createJourneyCard(card) {
   const journeyTemplate = document.querySelector('#journey_item').content;
   const journeyElement = journeyTemplate.querySelector('.journey__item').cloneNode(true);
   const journeyImg = journeyElement.querySelector('.journey__img');
@@ -53,9 +53,9 @@ function createJourneyCard(item) {
   const btnLikeCard = journeyElement.querySelector('.journey__like-btn');
   const journeyTitle = journeyElement.querySelector('.journey__title');
 
-  journeyImg.src = item.link;
-  journeyTitle.textContent = item.name;
-  journeyImg.alt = item.name;
+  journeyImg.src = card.link;
+  journeyTitle.textContent = card.name;
+  journeyImg.alt = card.name;
 
   // функция удаления карточки
   function deleteJourneyCard(e) {
@@ -69,9 +69,9 @@ function createJourneyCard(item) {
   // функция открытия попапа карточки
   function openJourneyPopup() {
     openPopup(popupShow);
-    imgPopupShow.src = item.link;
-    popupCaption.textContent = item.name;
-    imgPopupShow.alt = item.name;
+    imgPopupShow.src = card.link;
+    popupCaption.textContent = card.name;
+    imgPopupShow.alt = card.name;
   }
 
   // удаление карточки

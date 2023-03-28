@@ -22,7 +22,7 @@ const profession = profile.querySelector('.profile__profession');
 const profileEditBtn = profile.querySelector('.profile__edit-btn');
 const btnAddCard = profile.querySelector('.profile__add-btn');
 
-const journeyElementsContainer = document.querySelector('.journey__list');
+const journeyCardsContainer = document.querySelector('.journey__list');
 
 // ======================================================================================
 
@@ -46,12 +46,12 @@ function addInputValue(inputItem, textItem) {
 // функция создания карточки
 function createJourneyCard(card) {
   const journeyTemplate = document.querySelector('#journey_item').content;
-  const journeyElement = journeyTemplate.querySelector('.journey__item').cloneNode(true);
-  const journeyImg = journeyElement.querySelector('.journey__img');
-  const btnOpenJourneyPopup = journeyElement.querySelector('.journey__img-btn');
-  const btnDeleteCard = journeyElement.querySelector('.journey__delete-btn');
-  const btnLikeCard = journeyElement.querySelector('.journey__like-btn');
-  const journeyTitle = journeyElement.querySelector('.journey__title');
+  const journeyCard = journeyTemplate.querySelector('.journey__item').cloneNode(true);
+  const journeyImg = journeyCard.querySelector('.journey__img');
+  const btnOpenJourneyPopup = journeyCard.querySelector('.journey__img-btn');
+  const btnDeleteCard = journeyCard.querySelector('.journey__delete-btn');
+  const btnLikeCard = journeyCard.querySelector('.journey__like-btn');
+  const journeyTitle = journeyCard.querySelector('.journey__title');
 
   journeyImg.src = card.link;
   journeyTitle.textContent = card.name;
@@ -59,7 +59,7 @@ function createJourneyCard(card) {
 
   // функция удаления карточки
   function deleteJourneyCard(e) {
-    journeyElement.remove();
+    journeyCard.remove();
   }
   // функция лайка карточки
   function activeLikeBtn(e) {
@@ -81,14 +81,14 @@ function createJourneyCard(card) {
   // открытие попапа карточки
   btnOpenJourneyPopup.addEventListener('click', openJourneyPopup);
 
-  return journeyElement;
+  return journeyCard;
 }
 
 // функция добавления карточки на страницу
 function renderCard(item) {
   const journeyCard = createJourneyCard(item);
 
-  journeyElementsContainer.prepend(journeyCard);
+  journeyCardsContainer.prepend(journeyCard);
 }
 
 // функция добавления новой карточки

@@ -22,32 +22,8 @@ const profession = profile.querySelector('.profile__profession');
 const profileEditBtn = profile.querySelector('.profile__edit-btn');
 const btnAddCard = profile.querySelector('.profile__add-btn');
 
-const journeyElements = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+const journeyElementsContainer = document.querySelector('.journey__list');
+
 // ======================================================================================
 
 // ====================== функции =======================================================
@@ -62,19 +38,13 @@ function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
 }
 
- // функция очистки поля ввода формы
- function clearInputValue(...items) {
-  items.forEach(item => item.value = '');
-}
-
 // функция присвоения полям ввода формы значений из текста
 function addInputValue(inputItem, textItem) {
   inputItem.value = textItem.textContent;
 }
 
-// функция добавления карточки на страницу
+// функция создания карточки
 function createJourneyCard(name, link) {
-  const journeyElementsContainer = document.querySelector('.journey__list');
   const journeyTemplate = document.querySelector('#journey_item').content;
   const journeyElement = journeyTemplate.querySelector('.journey__item').cloneNode(true);
   const journeyImg = journeyElement.querySelector('.journey__img');
@@ -87,11 +57,9 @@ function createJourneyCard(name, link) {
   journeyTitle.textContent = name;
   journeyImg.alt = name;
 
-  journeyElementsContainer.prepend(journeyElement);
-
   // функция удаления карточки
   function deleteJourneyCard(e) {
-    e.target.closest('.journey__item').remove();
+    journeyElement.remove();
   }
   // функция лайка карточки
   function activeLikeBtn(e) {
@@ -100,7 +68,7 @@ function createJourneyCard(name, link) {
 
   // функция открытия попапа карточки
   function openJourneyPopup() {
-    popupShow.classList.add('popup_opened');
+    openPopup(popupShow);
     imgPopupShow.src = link;
     popupCaption.textContent = name;
     imgPopupShow.alt = name;
@@ -112,26 +80,32 @@ function createJourneyCard(name, link) {
   btnLikeCard.addEventListener('click', activeLikeBtn);
   // открытие попапа карточки
   btnOpenJourneyPopup.addEventListener('click', openJourneyPopup);
+
+  return journeyElement;
+}
+
+// функция добавления карточки на страницу
+function renderCard(name, link) {
+  const journeyCard = createJourneyCard(name, link);
+
+  journeyElementsContainer.prepend(journeyCard);
 }
 
 // функция добавления новой карточки
 function submitAddCardForm(e) {
   e.preventDefault();
 
-  createJourneyCard(elementName.value, elementLink.value);
+  renderCard(elementName.value, elementLink.value);
   closePopup(popupAdd);
-  clearInputValue(elementName, elementLink);
+  popupAddForm.reset();
 }
 
 // функция изменения данных профиля
 function submitEditProfileForm(e) {
   e.preventDefault();
 
-  const userNameInputValue = userNameInput.value;
-  const jobInputValue = jobInput.value;
-
-  userName.textContent = userNameInputValue;
-  profession.textContent = jobInputValue;
+  userName.textContent = userNameInput.value;
+  profession.textContent = jobInput.value;
 
   closePopup(popupEdit);
 }
@@ -140,7 +114,7 @@ function submitEditProfileForm(e) {
 // ================ циклы ===============================================================
 
 // вывод массива карточек на страницу
-journeyElements.forEach(item => createJourneyCard(item.name, item.link));
+journeyElements.forEach(item => renderCard(item.name, item.link));
 
 // ======================================================================================
 
@@ -168,7 +142,7 @@ popupAddForm.addEventListener('submit', submitAddCardForm);
 // закрытие попапа добавления карточки
 btnCloseAddPopup.addEventListener('click', () => {
   closePopup(popupAdd);
-  clearInputValue(elementName, elementLink);
+  popupAddForm.reset();
 });
 
 // закрытие попапа просмотра карточки

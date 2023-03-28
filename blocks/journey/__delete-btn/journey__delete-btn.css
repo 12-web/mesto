@@ -2,14 +2,14 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  z-index: 2;
-  transition: opacity .4s ease-in-out;
+  z-index: 1;
   background-image: url('../../../images/delete-icon.svg');
   height: 19px;
   width: 18px;
   background-size: 19px 18px;
   background-repeat: no-repeat;
   background-position: center;
+  transition: opacity .4s ease-in-out;
 
 }
 

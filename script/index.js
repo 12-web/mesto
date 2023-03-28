@@ -1,5 +1,4 @@
-// ------------------- константы ------------------------------------------------
-
+// ====================== константы =====================================================
 const popupEdit = document.querySelector('.popup_type_edit');
 const btnCloseEditPopup = popupEdit.querySelector('.popup__close-btn')
 const formElement = popupEdit.querySelector('.popup__form');
@@ -7,16 +6,21 @@ const userNameInput = popupEdit.querySelector('.popup__input_value_name');
 const jobInput = popupEdit.querySelector('.popup__input_value_profession');
 
 const popupAdd = document.querySelector('.popup_type_add');
+const elementName = popupAdd.querySelector('.popup__input_value_name');
+const elementLink = popupAdd.querySelector('.popup__input_value_link');
 const btnCloseAddPopup = popupAdd.querySelector('.popup__close-btn')
 const popupAddForm = popupAdd.querySelector('.popup__form');
+
 const popupShow = document.querySelector('.popup_type_show');
+const imgPopupShow = popupShow.querySelector('.popup__img');
+const popupCaption = popupShow.querySelector('.popup__caption');
+const btnCloseShowPopup = popupShow.querySelector('.popup__close-btn');
 
 const profile = document.querySelector('.profile');
 const userName = profile.querySelector('.profile__name');
 const profession = profile.querySelector('.profile__profession');
 const profileEditBtn = profile.querySelector('.profile__edit-btn');
 const btnAddCard = profile.querySelector('.profile__add-btn');
-
 
 const journeyElements = [
   {
@@ -44,21 +48,31 @@ const journeyElements = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-// --------------------------------------------------------------------------------------
+// ======================================================================================
 
-// ------------------- функции ----------------------------------------------------------
+// ====================== функции =======================================================
 
 // функция открытия попапа
-function openPopup(popapName) {
-  popapName.classList.add('popup_opened');
+function openPopup(popupName) {
+  popupName.classList.add('popup_opened');
 }
 
 // функция закрытия попапа
-function closePopup(popapName) {
-  popapName.classList.remove('popup_opened');
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened');
 }
 
-// функция вывода карточки на страницу
+ // функция очистки поля ввода формы
+ function clearInputValue(...items) {
+  items.forEach(item => item.value = '');
+}
+
+// функция присвоения полям ввода формы значений из текста
+function addInputValue(inputItem, textItem) {
+  inputItem.value = textItem.textContent;
+}
+
+// функция добавления карточки на страницу
 function createJourneyCard(name, link) {
   const journeyElementsContainer = document.querySelector('.journey__list');
   const journeyTemplate = document.querySelector('#journey_item').content;
@@ -67,11 +81,11 @@ function createJourneyCard(name, link) {
   const btnOpenJourneyPopup = journeyElement.querySelector('.journey__img-btn');
   const btnDeleteCard = journeyElement.querySelector('.journey__delete-btn');
   const btnLikeCard = journeyElement.querySelector('.journey__like-btn');
-  const btnCloseShowPopup = popupShow.querySelector('.popup__close-btn')
+  const journeyTitle = journeyElement.querySelector('.journey__title');
 
   journeyImg.src = link;
+  journeyTitle.textContent = name;
   journeyImg.alt = name;
-  journeyElement.querySelector('.journey__title').textContent = name;
 
   journeyElementsContainer.prepend(journeyElement);
 
@@ -83,14 +97,13 @@ function createJourneyCard(name, link) {
   function activeLikeBtn(e) {
     e.target.classList.toggle('journey__like-btn_active');
   }
+
   // функция открытия попапа карточки
   function openJourneyPopup() {
-    const imgPopupShow = popupShow.querySelector('.popup__img');
-
     popupShow.classList.add('popup_opened');
     imgPopupShow.src = link;
+    popupCaption.textContent = name;
     imgPopupShow.alt = name;
-    popupShow.querySelector('.popup__caption').textContent = name;
   }
 
   // удаление карточки
@@ -99,25 +112,15 @@ function createJourneyCard(name, link) {
   btnLikeCard.addEventListener('click', activeLikeBtn);
   // открытие попапа карточки
   btnOpenJourneyPopup.addEventListener('click', openJourneyPopup);
-  // закрытие попапа карточки
-  btnCloseShowPopup.addEventListener('click', () => closePopup(popupShow));
 }
-
-// вывод массива карточек на страницу
-journeyElements.forEach(item => createJourneyCard(item.name, item.link));
 
 // функция добавления новой карточки
 function submitAddCardForm(e) {
   e.preventDefault();
 
-  const elementName = popupAdd.querySelector('.popup__input_value_name');
-  const elementLink = popupAdd.querySelector('.popup__input_value_link');
-
   createJourneyCard(elementName.value, elementLink.value);
   closePopup(popupAdd);
-
-  elementName.value = '';
-  elementLink.value = '';
+  clearInputValue(elementName, elementLink);
 }
 
 // функция изменения данных профиля
@@ -132,32 +135,43 @@ function submitEditProfileForm(e) {
 
   closePopup(popupEdit);
 }
-// --------------------------------------------------------------------------------------
+// ======================================================================================
 
-// ------------------- слушатели событий ------------------------------------------------
+// ================ циклы ===============================================================
 
-// открытие попапа редактирования профиля
+// вывод массива карточек на страницу
+journeyElements.forEach(item => createJourneyCard(item.name, item.link));
+
+// ======================================================================================
+
+// ================ слушатели событий ===================================================
+
+// открытие попапа редактирования данных профиля
 profileEditBtn.addEventListener('click', () => {
   openPopup(popupEdit);
-
-  // присвоение полям ввода значений из текста
-  userNameInput.value = userName.textContent;
-  jobInput.value = profession.textContent;
+  addInputValue(userNameInput, userName);
+  addInputValue(jobInput, profession);
 });
-
-// закрытие попапа редактирования профиля
-btnCloseEditPopup.addEventListener('click', () => closePopup(popupEdit));
-
-// открытие попапа добавления карточки
-btnAddCard.addEventListener('click', () => {openPopup(popupAdd)});
-
-// закрытие попапа добавления карточки
-btnCloseAddPopup.addEventListener('click', () => closePopup(popupAdd));
 
 // отправка формы редактирования данных профиля
 formElement.addEventListener('submit', submitEditProfileForm);
 
+// закрытие попапа редактирования данных профиля
+btnCloseEditPopup.addEventListener('click', () => closePopup(popupEdit));
+
+// открытие попапа добавления карточки
+btnAddCard.addEventListener('click', () => openPopup(popupAdd));
+
 // добавление новой карточки
 popupAddForm.addEventListener('submit', submitAddCardForm);
-// --------------------------------------------------------------------------------------
+
+// закрытие попапа добавления карточки
+btnCloseAddPopup.addEventListener('click', () => {
+  closePopup(popupAdd);
+  clearInputValue(elementName, elementLink);
+});
+
+// закрытие попапа просмотра карточки
+btnCloseShowPopup.addEventListener('click', () => closePopup(popupShow));
+// ======================================================================================
 

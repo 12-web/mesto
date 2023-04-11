@@ -200,10 +200,6 @@ btnAddCard.addEventListener('click', () => {
 // добавление новой карточки
 popupAddForm.addEventListener('submit', submitAddCardForm);
 
-// закрытие попапа добавления карточки
-btnCloseAddPopup.addEventListener('click', () => {
-  closePopup(popupAdd);
-});
 
 // запуск валидации input'тов при кликах для каждого click'а валидации
 setClickEventListeners(popupEditForm, objValidation);

@@ -1,5 +1,3 @@
-import { popupEditForm, popupAddForm } from './index.js';
-
 // ====================== функции =======================================================
 
 // функция показа ошибки при вводе неверных данных в input
@@ -47,19 +45,19 @@ function setInputEventListeners(formElement, objValidation) {
 }
 
 // функция присвоения обработчиков кнопкам открытия попапа
-function setClickEventListeners(formElement, objValidation) {
+export function setClickEventListeners(formElement, objValidation) {
   const inputList = Array.from(formElement.querySelectorAll(objValidation.inputSelector));
   const btnSubmitForm = formElement.querySelector(objValidation.submitButtonSelector);
   const btnOpenPopup = document.getElementById(`${formElement.id}-btn`);
 
-  inputList.forEach(item => {
+  btnOpenPopup.addEventListener("click", () => {
+    // активация кнопки при валидности предзаполненных данных формы
+    toggleBtnForm(inputList, btnSubmitForm, objValidation);
 
-    btnOpenPopup.addEventListener('click', () => {
-      // активация кнопки при валидности предзаполненных данных формы
-      toggleBtnForm(inputList, btnSubmitForm, objValidation);
+    inputList.forEach((item) => {
       // сброс текста ошибок при открытии формы
       hideInputError(formElement, item, objValidation);
-      });
+    });
 
   });
 
@@ -73,9 +71,7 @@ function enableValidation(objValidation) {
     // запуск для каждого input'а валидации
     setInputEventListeners(item, objValidation);
    });
-   // запуск валидации input'тов при кликах для каждого click'а валидации
-   setClickEventListeners(popupEditForm, objValidation);
-   setClickEventListeners(popupAddForm, objValidation);
+
 }
 
 // функция перевода кнопки отправки формы в активное/неактивное состояние в зависимости от валидности input'ов
@@ -83,8 +79,10 @@ function toggleBtnForm(inputList, buttonElement, objValidation) {
 
   if(hasInvalidInput(inputList)) {
     buttonElement.classList.add(objValidation.inactiveButtonClass);
+    buttonElement.setAttribute('disabled', '');
   } else {
     buttonElement.classList.remove(objValidation.inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
   }
 
 }

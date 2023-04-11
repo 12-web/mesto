@@ -1,9 +1,9 @@
 import { journeyElements } from './cards.js';
+import { setClickEventListeners } from './validate.js';
 
 // ====================== константы =====================================================
 const popupEdit = document.querySelector('.popup_type_edit');
-const btnCloseEditPopup = popupEdit.querySelector('.popup__close-btn')
-export const popupEditForm = popupEdit.querySelector('.popup__form');
+const popupEditForm = document.forms['edit-profile'];
 const userNameInput = popupEdit.querySelector('.popup__input_value_name');
 const jobInput = popupEdit.querySelector('.popup__input_value_profession');
 
@@ -11,12 +11,11 @@ const popupAdd = document.querySelector('.popup_type_add');
 const elementName = popupAdd.querySelector('.popup__input_value_name');
 const elementLink = popupAdd.querySelector('.popup__input_value_link');
 const btnCloseAddPopup = popupAdd.querySelector('.popup__close-btn')
-export const popupAddForm = popupAdd.querySelector('.popup__form');
+const popupAddForm = document.forms['add-card'];
 
 const popupShow = document.querySelector('.popup_type_show');
 const imgPopupShow = popupShow.querySelector('.popup__img');
 const popupCaption = popupShow.querySelector('.popup__caption');
-const btnCloseShowPopup = popupShow.querySelector('.popup__close-btn');
 
 const profile = document.querySelector('.profile');
 const userName = profile.querySelector('.profile__name');
@@ -26,10 +25,21 @@ const btnAddCard = profile.querySelector('.profile__add-btn');
 
 const journeyCardsContainer = document.querySelector('.journey__list');
 
+const closeButtons = document.querySelectorAll('.popup__close-btn');
+
 const popupAttributes = {
   popupOpenedSelector: '.popup_opened',
   popupFormSelector: '.popup__form',
   popupOpenedClass: 'popup_opened'
+}
+
+const objValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
 }
 
 // ======================================================================================
@@ -40,33 +50,13 @@ const popupAttributes = {
 function closePopupViaEscape(e) {
   if(e.key === 'Escape') {
     const popupOpened = document.querySelector(popupAttributes.popupOpenedSelector);
-
     closePopup(popupOpened);
-    //при наличии в попапе формы, она будет очищена
-    cleanPopupForm(popupOpened);
-    //удаление обработчика закрытия попапа через escape
-    document.removeEventListener('keydown', closePopupViaEscape);
   }
 }
 
 //функция закрытия попапа нажатием на оверлей
 function closePopupViaOverlay(e) {
-  if(e.target === e.currentTarget) {
-    const popupOpened = document.querySelector(popupAttributes.popupOpenedSelector);
-
-    closePopup(popupOpened);
-    //при наличии в попапе формы, она будет очищена
-    cleanPopupForm(popupOpened);
-    //удаление обработчика закрытия попапа через escape
-    popupOpened.removeEventListener('click', closePopupViaOverlay);
-  }
-}
-
-// функция очистки формы попапа при наличии формы
-function cleanPopupForm(popupName) {
-  const popupForm = popupName.querySelector(popupAttributes.popupFormSelector);
-
-  popupForm && popupForm.reset();
+  e.target === e.currentTarget && closePopup(e.currentTarget);
 }
 
 //функция добавления функции закрытия попапа через escape
@@ -82,11 +72,17 @@ function addFeauterToClosePopupViaOverlay(popupName) {
 // функция открытия попапа
 function openPopup(popupName) {
   popupName.classList.add(popupAttributes.popupOpenedClass);
+  addFeauterToClosePopupViaEscape();
+  addFeauterToClosePopupViaOverlay(popupName);
 }
 
 // функция закрытия попапа
 function closePopup(popupName) {
   popupName.classList.remove(popupAttributes.popupOpenedClass);
+  //удаление обработчика закрытия попапа через escape
+  document.removeEventListener('keydown', closePopupViaEscape);
+  //удаление обработчика закрытия попапа через оверлей
+  popupName.removeEventListener('click', closePopupViaOverlay);
 }
 
 // функция присвоения полям ввода формы значений из текста
@@ -115,7 +111,7 @@ function createJourneyCard(card) {
   }
 
   // функция лайка карточки
-  function activeLikeBtn(e) {
+  function toggleLike(e) {
     e.target.classList.toggle('journey__like-btn_active');
   }
 
@@ -131,13 +127,11 @@ function createJourneyCard(card) {
   btnDeleteCard.addEventListener('click', deleteJourneyCard);
 
   // лайк карточки
-  btnLikeCard.addEventListener('click', activeLikeBtn);
+  btnLikeCard.addEventListener('click', toggleLike);
 
   // открытие попапа карточки
   btnOpenJourneyPopup.addEventListener('click', () => {
     openJourneyPopup(popupShow);
-    addFeauterToClosePopupViaEscape();
-    addFeauterToClosePopupViaOverlay(popupShow);
   });
 
   return journeyCard;
@@ -177,6 +171,13 @@ function submitEditProfileForm(e) {
 // вывод массива карточек на страницу
 journeyElements.forEach(item => renderCard(createJourneyCard(item)));
 
+// добвление обработчика закрытия попапа кнопкам закрытия
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+
+  button.addEventListener('click', () => closePopup(popup));
+});
+
 // ======================================================================================
 
 // ================ слушатели событий ===================================================
@@ -186,21 +187,14 @@ profileEditBtn.addEventListener('click', () => {
   openPopup(popupEdit);
   addInputValue(userNameInput, userName);
   addInputValue(jobInput, profession);
-  addFeauterToClosePopupViaEscape();
-  addFeauterToClosePopupViaOverlay(popupEdit);
 });
 
 // отправка формы редактирования данных профиля
 popupEditForm.addEventListener('submit', submitEditProfileForm);
 
-// закрытие попапа редактирования данных профиля
-btnCloseEditPopup.addEventListener('click', () => closePopup(popupEdit));
-
 // открытие попапа добавления карточки
 btnAddCard.addEventListener('click', () => {
   openPopup(popupAdd);
-  addFeauterToClosePopupViaEscape();
-  addFeauterToClosePopupViaOverlay(popupAdd);
 });
 
 // добавление новой карточки
@@ -209,11 +203,10 @@ popupAddForm.addEventListener('submit', submitAddCardForm);
 // закрытие попапа добавления карточки
 btnCloseAddPopup.addEventListener('click', () => {
   closePopup(popupAdd);
-  popupAddForm.reset();
 });
 
-// закрытие попапа просмотра карточки
-btnCloseShowPopup.addEventListener('click', () => {
-  closePopup(popupShow);
-});
+// запуск валидации input'тов при кликах для каждого click'а валидации
+setClickEventListeners(popupEditForm, objValidation);
+// запуск валидации input'тов при кликах для каждого click'а валидации
+setClickEventListeners(popupAddForm, objValidation);
 // ======================================================================================

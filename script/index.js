@@ -193,9 +193,7 @@ profileEditBtn.addEventListener('click', () => {
 popupEditForm.addEventListener('submit', submitEditProfileForm);
 
 // открытие попапа добавления карточки
-btnAddCard.addEventListener('click', () => {
-  openPopup(popupAdd);
-});
+btnAddCard.addEventListener('click', () => openPopup(popupAdd));
 
 // добавление новой карточки
 popupAddForm.addEventListener('submit', submitAddCardForm);

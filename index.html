@@ -13,19 +13,37 @@
   </head>
   <body class="root">
     <header class="header">
-      <img src="./images/logo-light.svg" alt="Логотип Местро" class="header__logo">
+      <img
+        src="./images/logo-light.svg"
+        alt="Логотип Местро"
+        class="header__logo"
+      >
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img src="./images/user-photo.png" alt="Фото пользователя" class="profile__img">
+          <img
+            src="./images/user-photo.png"
+            alt="Фото пользователя"
+            class="profile__img"
+          >
           <div class="profile__user-info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__profession">Исследователь океана</p>
-            <button class="profile__edit-btn btn" title="Редактировать профиль" type="button"></button>
+            <button
+              class="profile__edit-btn btn"
+              id="edit-profile-btn"
+              title="Редактировать профиль"
+              type="button">
+            </button>
           </div>
         </div>
-        <button class="profile__add-btn btn" title="Добавить карточку" type="button"></button>
+        <button
+          class="profile__add-btn btn"
+          id="add-card-btn"
+          title="Добавить карточку"
+          type="button">
+        </button>
       </section>
       <section class="journey">
         <ul class="journey__list">
@@ -38,47 +56,134 @@
     <div class="popup popup_type_edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <button class="popup__close-btn btn" title="Закрыть окно" type="button"></button>
-        <form action="#" class="popup__form" name="user-information">
-          <input type="text" class="popup__input popup__input_value_name" name="name" placeholder="Имя" required>
-          <input type="text" class="popup__input popup__input_value_profession" name="profession" placeholder="Род деятельности" required>
-          <button class="popup__form-btn btn" type="submit" title="Сохранить">Сохранить</button>
+        <button
+          class="popup__close-btn btn"
+          title="Закрыть окно"
+          type="button">
+        </button>
+        <form
+          class="popup__form"
+          id="edit-profile"
+          action="#"
+          name="user_information"
+          novalidate
+          >
+          <input
+            class="popup__input popup__input_value_name"
+            id="edit-name"
+            type="text"
+            name="name"
+            placeholder="Имя"
+            minlength="2"
+            maxlength="40"
+            required
+            >
+          <span class="popup__error edit-name-error"></span>
+          <input
+            class="popup__input popup__input_value_profession"
+            id="edit-profession"
+            type="text"
+            name="profession"
+            placeholder="Род деятельности"
+            minlength="2"
+            maxlength="200"
+            required
+            >
+          <span class="popup__error edit-profession-error"></span>
+          <button
+            class="popup__button btn"
+            type="submit"
+            title="Сохранить">
+            Сохранить
+          </button>
         </form>
       </div>
     </div>
     <div class="popup popup_type_add">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <button class="popup__close-btn btn" title="Закрыть окно" type="button"></button>
-        <form action="#" class="popup__form" name="card-information">
-          <input type="text" class="popup__input popup__input_value_name" name="name" placeholder="Название" required>
-          <input type="url" class="popup__input popup__input_value_link" name="link" placeholder="Ссылка на картинку" required>
-          <button class="popup__form-btn btn" type="submit" title="Сохранить">Создать</button>
+        <button
+          class="popup__close-btn btn"
+          title="Закрыть окно"
+          type="button">
+        </button>
+        <form
+          class="popup__form"
+          id="add-card"
+          action="#"
+          name="card-information"
+          novalidate
+          >
+          <input
+            class="popup__input popup__input_value_name"
+            id="add-name"
+            type="text"
+            name="name"
+            placeholder="Название"
+            minlength="2"
+            maxlength="30"
+            required
+            >
+          <span class="popup__error add-name-error"></span>
+          <input
+            class="popup__input popup__input_value_link"
+            id="add-link"
+            type="url"
+            name="link"
+            placeholder="Ссылка на картинку"
+            required
+            >
+            <span class="popup__error add-link-error"></span>
+          <button
+            class="popup__button btn"
+            type="submit"
+            title="Сохранить">
+            Создать
+          </button>
         </form>
       </div>
     </div>
     <div class="popup popup_type_show">
       <div class="popup__show-content">
-        <button class="popup__close-btn btn" type="button" title="Закрыть окно" ></button>
+        <button
+          class="popup__close-btn btn"
+          type="button"
+          title="Закрыть окно">
+        </button>
         <figure class="popup__img-container">
-          <img class="popup__img" src="./images/elbrus.jpg" alt="">
+          <img
+            class="popup__img"
+            src="./images/elbrus.jpg"
+            alt=""
+          >
           <figcaption class="popup__caption"></figcaption>
         </figure>
       </div>
     </div>
     <template id="journey_item">
       <li class="journey__item">
-        <button type="button" class="journey__img-btn btn" title="Посмотреть фото">
+        <button
+          type="button"
+          class="journey__img-btn btn"
+          title="Посмотреть фото">
           <img class="journey__img">
         </button>
-        <button type="button" class="journey__delete-btn btn" title="Удалить"></button>
+        <button
+          type="button"
+          class="journey__delete-btn btn"
+          title="Удалить">
+        </button>
         <div class="journey__description">
           <h2 class="journey__title"></h2>
-          <button type="button" class="journey__like-btn btn" title="Оценить"></button>
+          <button
+            type="button"
+            class="journey__like-btn btn"
+            title="Оценить">
+          </button>
         </div>
       </li>
     </template>
-    <script src="./script/cards.js"></script>
-    <script src="./script/index.js"></script>
+    <script type="module" src="./script/index.js"></script>
+    <script type="module" src="./script/validate.js"></script>
   </body>
 </html>

@@ -1,88 +1,67 @@
-import { journeyElements } from './cards.js';
-import { setClickEventListeners } from './validate.js';
+import { cardsArray } from './cards.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 // ====================== константы =====================================================
-const popupEdit = document.querySelector('.popup_type_edit');
-const popupEditForm = document.forms['edit-profile'];
-const userNameInput = popupEdit.querySelector('.popup__input_value_name');
-const jobInput = popupEdit.querySelector('.popup__input_value_profession');
+const popupEditProfile = document.querySelector('.popup_type_edit');
+const formEditProfile = document.forms['edit-profile'];
+const inputListEditProfile = formEditProfile.querySelectorAll('.popup__input');
+const userNameInput = popupEditProfile.querySelector('.popup__input_value_name');
+const userProfessionInput = popupEditProfile.querySelector('.popup__input_value_profession');
 
-const popupAdd = document.querySelector('.popup_type_add');
-const elementName = popupAdd.querySelector('.popup__input_value_name');
-const elementLink = popupAdd.querySelector('.popup__input_value_link');
-const btnCloseAddPopup = popupAdd.querySelector('.popup__close-btn')
-const popupAddForm = document.forms['add-card'];
-
-const popupShow = document.querySelector('.popup_type_show');
-const imgPopupShow = popupShow.querySelector('.popup__img');
-const popupCaption = popupShow.querySelector('.popup__caption');
+const popupNewCard = document.querySelector('.popup_type_add');
+const cardNameInput = popupNewCard.querySelector('.popup__input_value_name');
+const cardLinkInput = popupNewCard.querySelector('.popup__input_value_link');
+const formNewCard = document.forms['add-card'];
 
 const profile = document.querySelector('.profile');
 const userName = profile.querySelector('.profile__name');
-const profession = profile.querySelector('.profile__profession');
-const profileEditBtn = profile.querySelector('.profile__edit-btn');
-const btnAddCard = profile.querySelector('.profile__add-btn');
+const userProfession = profile.querySelector('.profile__profession');
+const btnOpenPopupEditProfile = profile.querySelector('.profile__edit-btn');
+const btnOpenPopupNewCard = profile.querySelector('.profile__add-btn');
 
-const journeyCardsContainer = document.querySelector('.journey__list');
+const cardsContainer = document.querySelector('.journey__list');
 
-const closeButtons = document.querySelectorAll('.popup__close-btn');
+const closeButtonsList = document.querySelectorAll('.popup__close-btn');
 
-const popupAttributes = {
+const popupConfig = {
   popupOpenedSelector: '.popup_opened',
   popupFormSelector: '.popup__form',
   popupOpenedClass: 'popup_opened'
 }
-
-const objValidation = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
-
 // ======================================================================================
 
 // ====================== функции =======================================================
 
 //функция закрытия попапа при нажатии на escape
-function closePopupViaEscape(e) {
+function closePopupWithEscape(e) {
   if(e.key === 'Escape') {
-    const popupOpened = document.querySelector(popupAttributes.popupOpenedSelector);
+    const popupOpened = document.querySelector(popupConfig.popupOpenedSelector);
     closePopup(popupOpened);
   }
 }
 
 //функция закрытия попапа нажатием на оверлей
-function closePopupViaOverlay(e) {
+function closePopupWithOverlay(e) {
   e.target === e.currentTarget && closePopup(e.currentTarget);
 }
 
-//функция добавления функции закрытия попапа через escape
-function addFeauterToClosePopupViaEscape() {
-  document.addEventListener('keydown', closePopupViaEscape);
-}
-
-//функция добавления функции закрытия попапа через оверлей
-function addFeauterToClosePopupViaOverlay(popupName) {
-  popupName.addEventListener('click', closePopupViaOverlay);
-}
-
 // функция открытия попапа
-function openPopup(popupName) {
-  popupName.classList.add(popupAttributes.popupOpenedClass);
-  addFeauterToClosePopupViaEscape();
-  addFeauterToClosePopupViaOverlay(popupName);
+export function openPopup(popupName) {
+  popupName.classList.add(popupConfig.popupOpenedClass);
+  //добавление обработчика закрытия попапа через escape
+  document.addEventListener('keydown', closePopupWithEscape);
+  //добавление функции закрытия попапа через оверлей
+  popupName.addEventListener('click', closePopupWithOverlay);
 }
 
 // функция закрытия попапа
 function closePopup(popupName) {
-  popupName.classList.remove(popupAttributes.popupOpenedClass);
+  popupName.classList.remove(popupConfig.popupOpenedClass);
   //удаление обработчика закрытия попапа через escape
-  document.removeEventListener('keydown', closePopupViaEscape);
+  document.removeEventListener('keydown', closePopupWithEscape);
   //удаление обработчика закрытия попапа через оверлей
-  popupName.removeEventListener('click', closePopupViaOverlay);
+  popupName.removeEventListener('click', closePopupWithOverlay);
 }
 
 // функция присвоения полям ввода формы значений из текста
@@ -90,89 +69,67 @@ function addInputValue(inputItem, textItem) {
   inputItem.value = textItem.textContent;
 }
 
-// функция создания карточки
-function createJourneyCard(card) {
-  const journeyTemplate = document.querySelector('#journey_item').content;
-  const journeyCard = journeyTemplate.querySelector('.journey__item').cloneNode(true);
-  const journeyImg = journeyCard.querySelector('.journey__img');
-  const btnOpenJourneyPopup = journeyCard.querySelector('.journey__img-btn');
-  const btnDeleteCard = journeyCard.querySelector('.journey__delete-btn');
-  const btnLikeCard = journeyCard.querySelector('.journey__like-btn');
-  const journeyTitle = journeyCard.querySelector('.journey__title');
-
-  // присвоение карточке данным из массива
-  journeyImg.src = card.link;
-  journeyTitle.textContent = card.name;
-  journeyImg.alt = card.name;
-
-  // функция удаления карточки
-  function deleteJourneyCard(e) {
-    journeyCard.remove();
-  }
-
-  // функция лайка карточки
-  function toggleLike(e) {
-    e.target.classList.toggle('journey__like-btn_active');
-  }
-
-  // функция открытия попапа карточки
-  function openJourneyPopup(popupName) {
-    openPopup(popupName);
-    imgPopupShow.src = card.link;
-    popupCaption.textContent = card.name;
-    imgPopupShow.alt = card.name;
-  }
-
-  // удаление карточки
-  btnDeleteCard.addEventListener('click', deleteJourneyCard);
-
-  // лайк карточки
-  btnLikeCard.addEventListener('click', toggleLike);
-
-  // открытие попапа карточки
-  btnOpenJourneyPopup.addEventListener('click', () => {
-    openJourneyPopup(popupShow);
-  });
-
-  return journeyCard;
-}
-
-// функция добавления карточки на страницу
-function renderCard(item) {
-  journeyCardsContainer.prepend(item);
-}
-
 // функция добавления новой карточки
-function submitAddCardForm(e) {
+function submitFormNewCard(e) {
   e.preventDefault();
-  const card = {
-    name: elementName.value,
-    link: elementLink.value
+  const cardData = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value
   };
 
-  renderCard(createJourneyCard(card));
-  closePopup(popupAdd);
-  popupAddForm.reset();
+  const card = new Card(cardData, 'journey_item');
+  const cardElement = card.createCard();
+
+  cardsContainer.prepend(cardElement);
+  closePopup(popupNewCard);
+  formNewCard.reset();
 }
 
 // функция изменения данных профиля
-function submitEditProfileForm(e) {
+function submitFormEditProfile(e) {
   e.preventDefault();
 
   userName.textContent = userNameInput.value;
-  profession.textContent = jobInput.value;
+  userProfession.textContent = userJobInput.value;
 
-  closePopup(popupEdit);
+  closePopup(popupEditProfile);
+}
+// функция скрытия ошибки при вводе неверных данных в input
+function hideInputError(formElement, formInput) {
+  const errorText = formElement.querySelector(`.${formInput.id}-error`);
+
+  formInput.classList.remove('popup__input_type_error');
+  errorText.classList.remove('popup__error_visible');
+  errorText.textContent = '';
 }
 // ======================================================================================
 
 // ================ циклы ===============================================================
 
 // вывод массива карточек на страницу
-journeyElements.forEach(item => renderCard(createJourneyCard(item)));
+cardsArray.forEach(item => {
+  const cardTemplate = new Card(item, 'journey_item');
+  const cardCompleteElement = cardTemplate.createCard();
+
+  cardsContainer.prepend(cardCompleteElement);
+});
+
+// запуск валидации всех форм
+Array.from(document.forms).forEach(item => {
+  const formValid = new FormValidator({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+    }, item);
+
+    formValid.enableValidation();
+ });
 
 // добвление обработчика закрытия попапа кнопкам закрытия
-closeButtons.forEach((button) => {
+closeButtonsList.forEach((button) => {
   const popup = button.closest('.popup');
 
   button.addEventListener('click', () => closePopup(popup));
@@ -183,24 +140,22 @@ closeButtons.forEach((button) => {
 // ================ слушатели событий ===================================================
 
 // открытие попапа редактирования данных профиля
-profileEditBtn.addEventListener('click', () => {
-  openPopup(popupEdit);
+btnOpenPopupEditProfile.addEventListener('click', () => {
+  openPopup(popupEditProfile);
+  //внесение данных в поля формы из данных на странице
   addInputValue(userNameInput, userName);
-  addInputValue(jobInput, profession);
+  addInputValue(userProfessionInput, userProfession);
+
+  //проверка валидности инпутов при внесении данных из формы
+  inputListEditProfile.forEach(item => hideInputError(formEditProfile, item));
 });
 
 // отправка формы редактирования данных профиля
-popupEditForm.addEventListener('submit', submitEditProfileForm);
+formEditProfile.addEventListener('submit', submitFormEditProfile);
 
 // открытие попапа добавления карточки
-btnAddCard.addEventListener('click', () => openPopup(popupAdd));
+btnOpenPopupNewCard.addEventListener('click', () => openPopup(popupNewCard));
 
 // добавление новой карточки
-popupAddForm.addEventListener('submit', submitAddCardForm);
-
-
-// запуск валидации input'тов при кликах для каждого click'а валидации
-setClickEventListeners(popupEditForm, objValidation);
-// запуск валидации input'тов при кликах для каждого click'а валидации
-setClickEventListeners(popupAddForm, objValidation);
+formNewCard.addEventListener('submit', submitFormNewCard);
 // ======================================================================================

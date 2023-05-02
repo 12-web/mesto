@@ -5,7 +5,6 @@ import FormValidator from './FormValidator.js';
 // ====================== константы =====================================================
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const formEditProfile = document.forms['edit-profile'];
-const inputListEditProfile = formEditProfile.querySelectorAll('.popup__input');
 const userNameInput = popupEditProfile.querySelector('.popup__input_value_name');
 const userProfessionInput = popupEditProfile.querySelector('.popup__input_value_profession');
 

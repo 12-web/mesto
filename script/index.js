@@ -20,6 +20,10 @@ const userProfession = profile.querySelector('.profile__profession');
 const btnOpenPopupEditProfile = profile.querySelector('.profile__edit-btn');
 const btnOpenPopupNewCard = profile.querySelector('.profile__add-btn');
 
+const popupShow = document.querySelector('.popup_type_show');
+const imgPopupShow = popupShow.querySelector('.popup__img');
+const popupCaption = popupShow.querySelector('.popup__caption');
+
 const cardsContainer = document.querySelector('.journey__list');
 
 const closeButtonsList = document.querySelectorAll('.popup__close-btn');
@@ -29,6 +33,8 @@ const popupConfig = {
   popupFormSelector: '.popup__form',
   popupOpenedClass: 'popup_opened'
 }
+
+const formValidators = {};
 // ======================================================================================
 
 // ====================== функции =======================================================
@@ -47,7 +53,7 @@ function closePopupWithOverlay(e) {
 }
 
 // функция открытия попапа
-export function openPopup(popupName) {
+function openPopup(popupName) {
   popupName.classList.add(popupConfig.popupOpenedClass);
   //добавление обработчика закрытия попапа через escape
   document.addEventListener('keydown', closePopupWithEscape);
@@ -77,10 +83,8 @@ function submitFormNewCard(e) {
     link: cardLinkInput.value
   };
 
-  const card = new Card(cardData, 'journey_item');
-  const cardElement = card.createCard();
+  cardsContainer.prepend(createCard(cardData));
 
-  cardsContainer.prepend(cardElement);
   closePopup(popupNewCard);
   formNewCard.reset();
 }
@@ -90,17 +94,22 @@ function submitFormEditProfile(e) {
   e.preventDefault();
 
   userName.textContent = userNameInput.value;
-  userProfession.textContent = userJobInput.value;
+  userProfession.textContent = userProfessionInput.value;
 
   closePopup(popupEditProfile);
 }
-// функция скрытия ошибки при вводе неверных данных в input
-function hideInputError(formElement, formInput) {
-  const errorText = formElement.querySelector(`.${formInput.id}-error`);
 
-  formInput.classList.remove('popup__input_type_error');
-  errorText.classList.remove('popup__error_visible');
-  errorText.textContent = '';
+function handleCardClick(name, link) {
+  imgPopupShow.src = link;
+  imgPopupShow.alt = name;
+  popupCaption.textContent = name;
+  openPopup(popupShow);
+}
+
+function createCard(item) {
+  const cardTemplate = new Card(item, 'journey_item', handleCardClick);
+  const cardCompleteElement = cardTemplate.createCard();
+  return cardCompleteElement;
 }
 // ======================================================================================
 
@@ -108,10 +117,7 @@ function hideInputError(formElement, formInput) {
 
 // вывод массива карточек на страницу
 cardsArray.forEach(item => {
-  const cardTemplate = new Card(item, 'journey_item');
-  const cardCompleteElement = cardTemplate.createCard();
-
-  cardsContainer.prepend(cardCompleteElement);
+  cardsContainer.prepend(createCard(item))
 });
 
 // запуск валидации всех форм
@@ -124,7 +130,10 @@ Array.from(document.forms).forEach(item => {
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
     }, item);
-
+    //добавление данных о валидируемой форме
+    const formName = item.getAttribute('name');
+    formValidators[formName] = formValid;
+    //включение валидации
     formValid.enableValidation();
  });
 
@@ -145,9 +154,7 @@ btnOpenPopupEditProfile.addEventListener('click', () => {
   //внесение данных в поля формы из данных на странице
   addInputValue(userNameInput, userName);
   addInputValue(userProfessionInput, userProfession);
-
-  //проверка валидности инпутов при внесении данных из формы
-  inputListEditProfile.forEach(item => hideInputError(formEditProfile, item));
+  formValidators['user_information'].resetValidation();
 });
 
 // отправка формы редактирования данных профиля

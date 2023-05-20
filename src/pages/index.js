@@ -1,12 +1,12 @@
-import { cardsArray } from './cards.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import PopupWithForm from './PopupWithForm.js';
-import PopupWithImage from './PopupWithImage.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
+import { cardsArray } from '../utils/cards.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 
-import '../pages/index.css';
+import './index.css';
 
 // ====================== константы =====================================================
 const popupEditProfile = document.querySelector('.popup_type_edit');
@@ -28,16 +28,9 @@ const formValidators = {};
 // ====================== функции =======================================================
 
 // функция открытия попапа просмотра картинки
-function handleCardClick(name, link) {
-  const popupShowClass = new PopupWithImage({
-    popupSelector: '.popup_type_show',
-    name,
-    link
-  });
-  // добаление обработчиков событий для попапа
-  popupShowClass.setEventListeners();
+function handleCardClick(title, link) {
   // открытие попапа
-  popupShowClass.open();
+  popupShowClass.open(title, link);
 }
 // функция создания карточки
 function createCard(item) {
@@ -48,16 +41,18 @@ function createCard(item) {
 
 // ======================================================================================
 // ================ классы ==============================================================
+const popupShowClass = new PopupWithImage({
+  popupSelector: '.popup_type_show',
+});
+// добаление обработчиков событий для попапа
+popupShowClass.setEventListeners();
 
 const popupNewCardClass = new PopupWithForm({
   popupSelector: '.popup_type_add',
-  handleSubmitForm: (e) => {
-    e.preventDefault();
-    const cardData = { name: cardNameInput.value, link: cardLinkInput.value };
+  handleSubmitForm: ({ name, link }) => {
+    const cardData = { name: name, link: link };
     //добавление карточки на страницу
     cards.addItem(createCard(cardData));
-    // закрытие и обнуление формы
-    popupNewCardClass.close();
   }
 });
 // добаление обработчиков событий для попапа
@@ -70,16 +65,12 @@ const userInfo = new UserInfo({
 
 const popupEditProfileClass = new PopupWithForm({
   popupSelector: '.popup_type_edit',
-  handleSubmitForm: (e) => {
-    e.preventDefault();
+  handleSubmitForm: ({ name, profession }) => {
     //добавление данных из формы на страницу
     userInfo.setUserInfo({
-      newName: userNameInput.value,
-      newProfession: userProfessionInput.value
+      newName: name,
+      newProfession: profession
     })
-    // закрытие и обнуление формы
-    popupEditProfileClass.close();
-
   }
 });
 // добаление обработчиков событий для попапа

@@ -18,19 +18,15 @@ export default class Popup {
   // открытие попапа
   open() {
     this._popup.classList.add(this.popupOpenedClass);
-
-    document.addEventListener('keydown', this._handleEscClose);
-    this._popup.addEventListener('click', this._handleOverlayClose);
   }
   // закрытие попапа
   close() {
     this._popup.classList.remove(this.popupOpenedClass);
-
-    document.removeEventListener('keydown', this._handleEscClose);
-    this._popup.removeEventListener('click', this._handleOverlayClose);
   }
   // добавление обработчиков событий
   setEventListeners() {
     this._closeBtn.addEventListener('click', () => this.close());
+    document.addEventListener('keydown', this._handleEscClose);
+    this._popup.addEventListener('click', this._handleOverlayClose);
   }
 }

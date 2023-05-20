@@ -22,17 +22,18 @@ export default class Card {
   // удаление карточки
   _deleteJourneyCard() {
     this._element.remove();
+    this._element = null;
   }
   // смена статуса кнопки лайка
   _toggleLike() {
-    this.classList.toggle('journey__like-btn_active');
+    this._buttonLike.classList.toggle('journey__like-btn_active');
   }
   // размещение обработчиков событий
   _setEventListeners() {
     //слушатель клика для удаления карточки
     this._buttonDelete.addEventListener('click', () => { this._deleteJourneyCard() });
     //слушатель клика для смены состояния кнопки лайка
-    this._buttonLike.addEventListener('click', this._toggleLike);
+    this._buttonLike.addEventListener('click', () => { this._toggleLike() });
     //слушатель клика для открытия попапа просмотра карточки
     this._buttonCardImage.addEventListener('click', () => { this._handleCardClick(this._title, this._link) });
   }

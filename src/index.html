@@ -8,13 +8,12 @@
     <meta name="keywords" content="JS, верстка, HTML, CSS">
     <meta name="description" content="Типовая страница по отработке навыков обращения к элементам DOM,
     добавлению обработчиков событий и написаю циклов и функций">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
   </head>
   <body class="root">
     <header class="header">
       <img
-        src="./images/logo-light.svg"
+        src="<%=require('./images/logo-light.svg')%>"
         alt="Логотип Местро"
         class="header__logo"
       >
@@ -23,7 +22,7 @@
       <section class="profile">
         <div class="profile__info">
           <img
-            src="./images/user-photo.png"
+            src="<%=require('./images/user-photo.png')%>"
             alt="Фото пользователя"
             class="profile__img"
           >
@@ -153,7 +152,7 @@
         <figure class="popup__img-container">
           <img
             class="popup__img"
-            src="./images/elbrus.jpg"
+            src="."
             alt=""
           >
           <figcaption class="popup__caption"></figcaption>
@@ -183,6 +182,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./script/index.js"></script>
   </body>
 </html>

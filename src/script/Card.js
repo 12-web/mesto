@@ -11,7 +11,7 @@ export default class Card {
     this._buttonDelete = this._element.querySelector('.journey__delete-btn');
     this._cardTitle = this._element.querySelector('.journey__title');
   }
-  // функция получения шаблона карточки
+  // получение шаблона карточки
   _getTemplateElement() {
     return document
     .getElementById(this._templateId)
@@ -19,15 +19,15 @@ export default class Card {
     .querySelector('.journey__item')
     .cloneNode(true);
   }
-  // функция удаления карточки
+  // удаление карточки
   _deleteJourneyCard() {
     this._element.remove();
   }
-  // функция смены статуса кнопки лайка
+  // смена статуса кнопки лайка
   _toggleLike() {
     this.classList.toggle('journey__like-btn_active');
   }
-  // функция размещения обработчиков событий
+  // размещение обработчиков событий
   _setEventListeners() {
     //слушатель клика для удаления карточки
     this._buttonDelete.addEventListener('click', () => { this._deleteJourneyCard() });
@@ -36,7 +36,7 @@ export default class Card {
     //слушатель клика для открытия попапа просмотра карточки
     this._buttonCardImage.addEventListener('click', () => { this._handleCardClick(this._title, this._link) });
   }
-  // функция создания карточки
+  // создание карточки
   createCard() {
     this._cardTitle.textContent = this._title;
     this._cardImage.src = this._link;

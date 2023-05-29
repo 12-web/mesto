@@ -13,10 +13,6 @@ const popupEditProfile = document.querySelector('.popup_type_edit');
 const userNameInput = popupEditProfile.querySelector('.popup__input_value_name');
 const userProfessionInput = popupEditProfile.querySelector('.popup__input_value_profession');
 
-const popupNewCard = document.querySelector('.popup_type_add');
-const cardNameInput = popupNewCard.querySelector('.popup__input_value_name');
-const cardLinkInput = popupNewCard.querySelector('.popup__input_value_link');
-
 const profile = document.querySelector('.profile');
 const btnOpenPopupEditProfile = profile.querySelector('.profile__edit-btn');
 const btnOpenPopupNewCard = profile.querySelector('.profile__add-btn');

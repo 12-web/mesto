@@ -21,6 +21,7 @@
 @import url('../blocks/profile/profile.css');
 @import url('../blocks/profile/__info/profile__info.css');
 @import url('../blocks/profile/__img/profile__img.css');
+@import url('../blocks/profile/__img-container/profile__img-container.css');
 @import url('../blocks/profile/__user-info/profile__user-info.css');
 @import url('../blocks/profile/__name/profile__name.css');
 @import url('../blocks/profile/__name/profile__name.css');
@@ -36,9 +37,11 @@
 @import url('../blocks/journey/__img/journey__img.css');
 @import url('../blocks/journey/__description/journey__description.css');
 @import url('../blocks/journey/__title/journey__title.css');
+@import url('../blocks/journey/__like-container/journey__like-container.css');
 @import url('../blocks/journey/__like-btn/journey__like-btn.css');
-@import url('../blocks/journey/__like-btn/_active/journey__like-btn_active.css');
+@import url('../blocks/journey/__like-digit/journey__like-digit.css');
 @import url('../blocks/journey/__delete-btn/journey__delete-btn.css');
+@import url('../blocks/journey/__like-btn/_active/journey__like-btn_active.css');
 
 /* Блок popup*/
 @import url('../blocks/popup/popup.css');

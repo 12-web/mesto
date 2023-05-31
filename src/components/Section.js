@@ -1,13 +1,13 @@
 export default class Section {
-  constructor({items, renderer}, containerSelector) {
-    this._items = items;
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._containerSelector = containerSelector;
     this._container = document.querySelector(this._containerSelector);
   }
   // вывод массива элементов на страницу
-  generate() {
-    this._items.forEach(item => { this._container.prepend(this._renderer(item)) });
+  generate(items) {
+    items.forEach(item => {
+      this._container.prepend( this._renderer(item) )});
   }
   // добавление элемента на страницу
   addItem(element) {

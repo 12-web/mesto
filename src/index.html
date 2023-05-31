@@ -21,11 +21,13 @@
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img
+          <div class="profile__img-container profile__edit-avatar">
+            <img
             src="<%=require('./images/user-photo.png')%>"
             alt="Фото пользователя"
             class="profile__img"
-          >
+            >
+          </div>
           <div class="profile__user-info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__profession">Исследователь океана</p>
@@ -52,6 +54,63 @@
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
+    <div class="popup popup_type_delete-confirm">
+      <div class="popup__container">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <button
+          class="popup__close-btn btn"
+          title="Закрыть окно"
+          type="button">
+        </button>
+        <form
+          class="popup__form"
+          id="delete-confirm"
+          action="#"
+          name="delete_confirm"
+          novalidate
+          >
+          <button
+            class="popup__button btn"
+            type="submit"
+            title="Да">
+            Да
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_avatar">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <button
+          class="popup__close-btn btn"
+          title="Закрыть окно"
+          type="button">
+        </button>
+        <form
+          class="popup__form"
+          id="edit-avatar"
+          action="#"
+          name="avatar"
+          novalidate
+          >
+          <input
+            class="popup__input popup__input_value_avatar"
+            id="edit-avatar"
+            type="url"
+            name="avatar"
+            placeholder="Ссылка на изображение"
+            required
+            >
+          <span class="popup__error edit-avatar-error"></span>
+          <button
+            class="popup__button btn"
+            type="submit"
+            title="Сохранить">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
     <div class="popup popup_type_edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -174,11 +233,14 @@
         </button>
         <div class="journey__description">
           <h2 class="journey__title"></h2>
-          <button
+          <div class="journey__like-container">
+            <button
             type="button"
             class="journey__like-btn btn"
             title="Оценить">
           </button>
+          <span class="journey__like-digit">1789</span>
+          </div>
         </div>
       </li>
     </template>

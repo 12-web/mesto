@@ -25,16 +25,16 @@ export default class FormValidator {
   }
 
   // проверка input'a на валидность
-  _isValid(formInput, errorMessage) {
+  _isValid(formInput) {
     return !formInput.validity.valid
-    ? this._showInputError(formInput, errorMessage)
+    ? this._showInputError(formInput, formInput.validationMessage)
     : this._hideInputError(formInput);
   }
 
   // дезактивация кнопки отправки формы
   _deactivateSubmitButton() {
     this._submitButton.classList.add(this._config.inactiveButtonClass);
-    this._submitButton.setAttribute('disabled', '');
+    this._submitButton.disabled = '';
   }
 
   // активация кнопки отправки формы
@@ -65,7 +65,7 @@ export default class FormValidator {
 
       item.addEventListener('input', () => {
         // проверка валидности заполняемых данных формы
-        this._isValid(item, item.validationMessage);
+        this._isValid(item);
         // активация кнопки при валидности заполняемых данных формы
         this._toggleBtnForm();
       });

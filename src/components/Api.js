@@ -3,13 +3,22 @@ export default class Api {
     this._baseUrl = baseUrl;
     this._headers = headers;
     }
+  // получение овтета на запрос
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
+
   // получение карточек
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._headers.authorization
       }
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // получение информации пользователя
   getUserInformation() {
@@ -17,7 +26,8 @@ export default class Api {
       headers: {
         authorization: this._headers.authorization
       }
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // изменение информации пользователя
   editProfileData(name, about) {
@@ -28,7 +38,8 @@ export default class Api {
         name,
         about
       })
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // изменение аватара пользователя
   editUserAvatar(avatar) {
@@ -38,7 +49,8 @@ export default class Api {
       body: JSON.stringify({
         avatar
       })
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // добавление новой карточки
   addNewCard(name, link) {
@@ -49,7 +61,8 @@ export default class Api {
         name,
         link
       })
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // удаление карточки
   deleteCard(id) {
@@ -58,7 +71,8 @@ export default class Api {
       headers: {
         authorization: this._headers.authorization
       }
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // добавление лайка
   addLike(id) {
@@ -67,7 +81,8 @@ export default class Api {
       headers: {
         authorization: this._headers.authorization
       }
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
   // удаление лайка
   removeLike(id) {
@@ -76,6 +91,7 @@ export default class Api {
       headers: {
         authorization: this._headers.authorization
       }
-    });
+    })
+    .then(res => this._getResponseData(res))
   }
 }

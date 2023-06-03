@@ -10,12 +10,12 @@ export default class Popup {
 
   // закрытие попапа через esc
   _handleEscClose(e) {
-    e.key === 'Escape' && this.close();
+    if(e.key === 'Escape') this.close();
   }
 
   // закрытие попапа через оверлей
   _handleOverlayClose(e) {
-    e.target === e.currentTarget && this.close();
+    if(e.target === e.currentTarget) this.close();
   }
 
   // открытие попапа

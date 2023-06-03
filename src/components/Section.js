@@ -6,13 +6,12 @@ export default class Section {
   }
 
   // вывод массива элементов на страницу
-  generate(items) {
-    items.forEach(item => {
-      this._container.prepend( this._renderer(item) )});
+  renderItems(items) {
+    items.forEach(item => this._renderer(item));
   }
 
   // добавление элемента на страницу
-  addItem(element) {
-    this._container.prepend(element);
+  addItem(item) {
+    this._container.append(item);
   }
 }

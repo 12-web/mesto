@@ -11,19 +11,20 @@ export default class UserInfo {
   getUserInfo() {
     return {
       userName: this._profileName.textContent,
-      userProfession: this._profileProfession.textContent
+      userProfession: this._profileProfession.textContent,
+      userAvatar: this._profileAvatar.src
     }
   }
 
   // добавление данных пользователя на страницу
-  setUserInfo({ newName, newProfession, userId }) {
-    this.userId = userId;
-    this._profileName.textContent = newName;
-    this._profileProfession.textContent = newProfession;
+  setUserInfo({ name, about, _id }) {
+    this._profileName.textContent = name;
+    this._profileProfession.textContent = about;
+    this.userId = _id;
   }
 
   // добавление аватара пользователя
-  setUserImage({ newAvatar }) {
-    this._profileAvatar.src = newAvatar;
+  setUserImage({ avatar }) {
+    this._profileAvatar.src = avatar;
   }
 }

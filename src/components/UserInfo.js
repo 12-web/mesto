@@ -14,6 +14,7 @@ export default class UserInfo {
       userProfession: this._profileProfession.textContent
     }
   }
+
   // добавление данных пользователя на страницу
   setUserInfo({ newName, newProfession, userId }) {
     this.userId = userId;
@@ -21,6 +22,7 @@ export default class UserInfo {
     this._profileProfession.textContent = newProfession;
   }
 
+  // добавление аватара пользователя
   setUserImage({ newAvatar }) {
     this._profileAvatar.src = newAvatar;
   }

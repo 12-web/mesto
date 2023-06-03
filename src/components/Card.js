@@ -55,6 +55,7 @@ export default class Card {
     ? this._addLike(this.id, this._likeCounter)
     : this._removeLike(this.id, this._likeCounter);
   }
+
   // проверка возможности удаления карточки
   _checkDeleteAbility() {
     this.deleteAbility
@@ -73,6 +74,7 @@ export default class Card {
     //слушатель клика для открытия попапа просмотра карточки
     this._buttonCardImage.addEventListener('click', () => { this._handleCardClick(this._title, this._link) });
   }
+
   // создание карточки
   createCard() {
     this._cardTitle.textContent = this._title;

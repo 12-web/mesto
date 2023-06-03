@@ -1,9 +1,9 @@
 export default class Api {
-  constructor({baseUrl, headers}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
     }
-
+  // получение карточек
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
@@ -11,7 +11,7 @@ export default class Api {
       }
     });
   }
-
+  // получение информации пользователя
   getUserInformation() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
@@ -19,7 +19,7 @@ export default class Api {
       }
     });
   }
-
+  // изменение информации пользователя
   editProfileData(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
@@ -30,7 +30,7 @@ export default class Api {
       })
     });
   }
-
+  // изменение аватара пользователя
   editUserAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
@@ -40,7 +40,7 @@ export default class Api {
       })
     });
   }
-
+  // добавление новой карточки
   addNewCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
@@ -51,25 +51,31 @@ export default class Api {
       })
     });
   }
-
+  // удаление карточки
   deleteCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        authorization: this._headers.authorization
+      }
     });
   }
-
+  // добавление лайка
   addLike(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: {
+        authorization: this._headers.authorization
+      }
     });
   }
-
+  // удаление лайка
   removeLike(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        authorization: this._headers.authorization
+      }
     });
   }
 }

@@ -18,6 +18,7 @@ export default class PopupWithForm extends Popup {
 
     return formData;
   }
+
   // добавление обработчиков событий
   setEventListeners() {
     super.setEventListeners();
@@ -29,6 +30,7 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  // закрытие попапа
   close() {
     super.close();
     // обнуление формы

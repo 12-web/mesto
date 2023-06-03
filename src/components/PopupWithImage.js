@@ -7,6 +7,7 @@ export default class PopupWithImage extends Popup {
     this._popupCaption = this._popup.querySelector('.popup__caption');
   }
 
+  // открытие попапа
   open(title, link) {
     super.open();
     // присвоение данных попапу

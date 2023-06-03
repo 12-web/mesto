@@ -10,6 +10,7 @@ import Section from '../components/Section.js';
 import './index.css';
 
 // ====================== константы =====================================================
+
 const popupEditProfile = document.querySelector('.popup_type_edit');
 const userNameInput = popupEditProfile.querySelector('.popup__input_value_name');
 const userProfessionInput = popupEditProfile.querySelector('.popup__input_value_profession');
@@ -23,7 +24,7 @@ const formValidators = {};
 
 // ======================================================================================
 
-// ====================== функции =============================
+// ====================== функции =======================================================
 //функция присвоения лайков счетчику
 function showLikesCount(likeCounter, likes) {
   likeCounter.textContent = likes;
@@ -35,7 +36,6 @@ function addLike(id, likeCounter) {
   api.addLike(id)
     .then(res => {
       if(res.ok) {
-        console.log(id);
         return res.json();
       }
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -77,14 +77,14 @@ function openDeletePopup(id, card) {
 function createCard(item) {
   const cardTemplate = new Card(item, 'journey_item', handleCardClick, openDeletePopup, addLike, removeLike);
   // проверка создания карточки пользователем
-  userInfo.userId === cardTemplate.ownerId
-  ? cardTemplate.deleteAbility = true
-  : cardTemplate.deleteAbility = false;
+  userInfo.userId === cardTemplate.ownerId && (cardTemplate.deleteAbility = true);
+
   // проверка наличия лайка пользователем
   item.likes.forEach(item => {
-    item._id === userInfo.userId
-    ? cardTemplate.activeLike = true
-    : cardTemplate.activeLike = false;
+    if(item._id === userInfo.userId) {
+      cardTemplate.activeLike = true;
+      return;
+    }
   });
 
   const cardCompleteElement = cardTemplate.createCard();
@@ -119,9 +119,8 @@ const popupNewCardClass = new PopupWithForm({
         return Promise.reject(`Ошибка: ${res.status}`);
       })
       .then(data => {
-        const cardData = {name: data.name, link: data.link, likes: data.likes, owner: data.owner}
         //добавление карточки на страницу
-        cards.addItem(createCard(cardData));
+        cards.addItem(createCard(data));
       })
       .catch((err) => { console.log(err) })
       .finally(() => {
@@ -137,26 +136,6 @@ const userInfo = new UserInfo({
   professionSelector: '.profile__profession',
   avatarSelector: '.profile__img'
 });
-
-
-// получение информации о пользователе
-api.getUserInformation()
-  .then(res => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .then(res => {
-    userInfo.setUserInfo({
-      newName: res.name,
-      newProfession: res.about,
-      userId: res._id
-    });
-    userInfo.setUserImage({ newAvatar: res.avatar });
-  })
-  .catch((err) => { console.log(err) });
-
 
 const popupEditProfileClass = new PopupWithForm({
   popupSelector: '.popup_type_edit',
@@ -233,7 +212,25 @@ const cards = new Section({
 '.journey__list'
 );
 
-// получение карточек с сервера
+// получение информации о пользователе
+api.getUserInformation()
+  .then(res => {
+    if(res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .then(res => {
+    userInfo.setUserInfo({
+      newName: res.name,
+      newProfession: res.about,
+      userId: res._id
+    });
+    userInfo.setUserImage({ newAvatar: res.avatar });
+  })
+  .catch((err) => { console.log(err) });
+
+// получение карточек
 api.getInitialCards()
   .then(res => {
     if(res.ok) {
@@ -276,8 +273,11 @@ btnOpenPopupEditProfile.addEventListener('click', () => {
   //офистка формы от текста ошибок и проверка состояния кнопки
   formValidators['user_information'].resetValidation();
 });
-//открытие попапа добавление новой карточки
+
+// открытие попапа добавление новой карточки
 btnOpenPopupNewCard.addEventListener('click', () => popupNewCardClass.open());
 
+// открытие попапа изменения аватара пользователя
 btnOpenPopupEditAvatar.addEventListener('click', () => popupEditAvatarClass.open());
+
 // ======================================================================================

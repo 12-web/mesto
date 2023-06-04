@@ -34,8 +34,8 @@ function openPopupUserInfo() {
   userProfessionInput.value = userProfession;
   //очистка формы от текста ошибок и проверка состояния кнопки
   formValidators['user_information'].resetValidation();
-    // открытие попапа
-    popupEditUserInfo.open()
+  // открытие попапа
+  popupEditUserInfo.open()
 }
 
 /**
@@ -65,11 +65,11 @@ function checkLikeStatus(likesList) {
  * функция добавления лайка, при котором отправляется запрос на сервер
  * @param {number} id - id карточки
  */
-function addLike(id) {
+function addLike(card) {
   // открытие попапа
-  api.addLike(id)
+  api.addLike(card.getId())
     .then(data => {
-      this.updateLikes(data.likes.length, checkLikeStatus(data.likes));
+      card.updateLikes(data.likes.length, true);
     })
     .catch((err) => { console.log(err) });
 }
@@ -78,11 +78,11 @@ function addLike(id) {
  * функция удаления лайка, при котором отправляется запрос на сервер
  * @param {number} id - id карточки
  */
-function removeLike(id) {
+function removeLike(card) {
   // открытие попапа
-  api.removeLike(id)
+  api.removeLike(card.getId())
   .then(data => {
-    this.updateLikes(data.likes.length, checkLikeStatus(data.likes));
+    card.updateLikes(data.likes.length, checkLikeStatus(data.likes));
   })
     .catch((err) => { console.log(err) });
 }
@@ -111,10 +111,9 @@ function handleDeleteClick(card) {
  * @param {Object} card - объект карточки
  */
 function createCard(card) {
-  const cardTemplate = new Card(card, 'journey_item', handleCardClick, handleDeleteClick, addLike, removeLike, { likeStatus: false }, { isRemovable: false });
-  // проверка создания карточки пользователем
-  if(userInfo.userId === cardTemplate.ownerId) cardTemplate.isRemovable = true;
-  cardTemplate.updateLikes(card.likes.length, checkLikeStatus(card.likes));
+  const cardTemplate = new Card(card, 'journey_item', handleCardClick, handleDeleteClick, addLike, removeLike,
+  { likeStatus: checkLikeStatus(card.likes) },
+  { isRemovable: userInfo.userId === card.owner._id });
 
   const cardCompleteElement = cardTemplate.createCard();
   return cardCompleteElement;
@@ -137,11 +136,13 @@ popupShow.setEventListeners();
 
 const popupNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add',
-  handleSubmitForm: ({ name, link }, button) => {
+  handleSubmitForm: ({ name, link }) => {
     popupNewCard.setSubmitButtonText('Сохранение...');
     api.addNewCard(name, link)
-      .then(data => cardsSection.addItem(createCard(data)))
-      .then(() => popupNewCard.close())
+      .then(data => {
+        cardsSection.appendItem(createCard(data));
+        popupNewCard.close();
+      })
       .catch((err) => { console.log(err) })
       .finally(() => {
         popupNewCard.setSubmitButtonText('Создать');
@@ -159,7 +160,7 @@ const userInfo = new UserInfo({
 
 const popupEditUserInfo = new PopupWithForm({
   popupSelector: '.popup_type_edit',
-  handleSubmitForm: ({ name, profession }, button) => {
+  handleSubmitForm: ({ name, profession }) => {
     popupEditUserInfo.setSubmitButtonText('Сохранение...');
     //добавление данных из формы на страницу
     api.editProfileData(name, profession)
@@ -171,7 +172,6 @@ const popupEditUserInfo = new PopupWithForm({
         });
         popupEditUserInfo.close();
       })
-      .then(() => popupEditUserInfo.close())
       .catch((err) => { console.log(err) })
       .finally(() => {
         popupEditUserInfo.setSubmitButtonText('Сохранить');
@@ -183,11 +183,13 @@ popupEditUserInfo.setEventListeners();
 
 const popupEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_avatar',
-  handleSubmitForm: ({ avatar }, button) => {
+  handleSubmitForm: ({ avatar }) => {
     popupEditAvatar.setSubmitButtonText('Сохранение...');
     api.editUserAvatar(avatar)
-      .then(res => userInfo.setUserImage({ avatar: res.avatar }))
-      .then(() => popupEditAvatar.close())
+      .then(res => {
+        userInfo.setUserImage({ avatar: res.avatar });
+        popupEditAvatar.close();
+      })
       .catch((err) => { console.log(err) })
       .finally(() => {
         popupEditAvatar.setSubmitButtonText('Сохранить');
@@ -199,10 +201,12 @@ popupEditAvatar.setEventListeners();
 
 const popupDeleteCard = new PopupWithConfirmation({
   popupSelector: '.popup_type_delete-confirm',
-  handleSubmitForm: (id, card) => {
-      api.deleteCard(id)
-      .then(() => card.deleteJourneyCard())
-      .then(() => popupDeleteCard.close())
+  handleSubmitForm: (card) => {
+      api.deleteCard(card.getId())
+      .then(() => {
+        card.deleteJourneyCard();
+        popupDeleteCard.close();
+      })
       .catch((err) => { console.log(err) });
   }
 });
@@ -212,7 +216,7 @@ popupDeleteCard.setEventListeners();
 const cardsSection = new Section({
   renderer: item => {
     const card = createCard(item);
-    cardsSection.addItem(card);
+    cardsSection.prependItem(card);
   }
   },
 '.journey__list'

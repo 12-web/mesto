@@ -54,8 +54,8 @@ export default class Card {
   _toggleLike() {
     //проверка наличия лайка пользователя
     this._buttonLike.classList.contains(this._activeLikeButtonClass)
-    ? this._removeLike(this._id, this._likeCounter)
-    : this._addLike(this._id);
+    ? this._removeLike(this)
+    : this._addLike(this);
   }
 
   // получение id карточки
@@ -94,6 +94,8 @@ export default class Card {
     this._cardTitle.textContent = this._title;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._title;
+    // проверка создания карточки пользователем
+    this.updateLikes(this._likesCount, this.likeStatus);
 
     this._setEventListeners();
     return this._element;

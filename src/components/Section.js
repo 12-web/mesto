@@ -10,8 +10,13 @@ export default class Section {
     items.forEach(item => this._renderer(item));
   }
 
-  // добавление элемента на страницу
-  addItem(item) {
+  // добавление элемента в конец страницы
+  appendItem(item) {
     this._container.append(item);
+  }
+
+  // добавление элемента в конец страницы
+  prependItem(item) {
+    this._container.prepend(item);
   }
 }

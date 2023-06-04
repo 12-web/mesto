@@ -82,7 +82,7 @@ function removeLike(card) {
   // открытие попапа
   api.removeLike(card.getId())
   .then(data => {
-    card.updateLikes(data.likes.length, checkLikeStatus(data.likes));
+    card.updateLikes(data.likes.length, false);
   })
     .catch((err) => { console.log(err) });
 }
@@ -140,7 +140,7 @@ const popupNewCard = new PopupWithForm({
     popupNewCard.setSubmitButtonText('Сохранение...');
     api.addNewCard(name, link)
       .then(data => {
-        cardsSection.appendItem(createCard(data));
+        cardsSection.prependItem(createCard(data));
         popupNewCard.close();
       })
       .catch((err) => { console.log(err) })
@@ -216,7 +216,7 @@ popupDeleteCard.setEventListeners();
 const cardsSection = new Section({
   renderer: item => {
     const card = createCard(item);
-    cardsSection.prependItem(card);
+    cardsSection.appendItem(card);
   }
   },
 '.journey__list'
